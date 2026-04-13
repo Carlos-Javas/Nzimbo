@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <meta name="theme-color" content="#0c0c0c"/>
+  <meta charset="UTF-8"/>
+  <title>A autenticar... – Nzimbo</title>
+  <style>
+    body{background:#0c0c0c;color:#fff;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:20px;}
+    .spinner{width:40px;height:40px;border-radius:50%;border:3px solid rgba(245,166,35,0.2);border-top-color:#F5A623;animation:spin .7s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+  </style>
+</head>
+<body>
+  <div class="spinner"></div>
+  <p style="color:rgba(255,255,255,0.5);font-size:14px;">A autenticar com Google...</p>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../supabase.js"></script>
+  <script>
+  (async () => {
+    // Supabase trata automaticamente do token no URL hash
+    await new Promise(r => setTimeout(r, 1000));
+    const session = await getSession();
+    if (session) {
+      const profile = await getProfile(session.user.id);
+      if (profile?.type === 'creator') window.location.href = '../seller/dashboard.html';
+      else window.location.href = '../buyer/dashboard.html';
+    } else {
+      window.location.href = 'login.html';
+    }
+  })();
+  </script>
+</body>
+</html>

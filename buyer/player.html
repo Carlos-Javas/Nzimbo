@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <meta name="theme-color" content="#0c0c0c"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Player – Nzimbo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --gold:#F5A623;--gold-d:#D4891A;--black:#0c0c0c;--b2:#111;--b3:#181818;--b4:#202020;--b5:#2a2a2a;
+      --white:#fff;--grey:#888;--grey2:#555;--border:rgba(255,255,255,0.08);
+      --success:#22c55e;--error:#ef4444;
+      --sidebar-w:320px;--topbar-h:56px;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{font-size:16px;}
+    body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    a{text-decoration:none;color:inherit;}
+
+    /* ── TOPBAR ── */
+    .topbar{
+      position:fixed;top:0;left:0;right:0;height:var(--topbar-h);z-index:100;
+      background:rgba(12,12,12,0.97);backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
+      display:flex;align-items:center;gap:16px;padding:0 20px;
+    }
+    .back-btn{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--grey);padding:7px 12px;border-radius:8px;border:1px solid var(--border);background:var(--b3);transition:.2s;cursor:pointer;}
+    .back-btn:hover{color:var(--white);border-color:rgba(255,255,255,0.2);}
+    .course-title-bar{flex:1;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .progress-bar-top{flex:1;max-width:240px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+    .progress-bar-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .5s ease;}
+    .progress-label{font-size:12px;color:var(--grey);white-space:nowrap;}
+    .topbar-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#0c0c0c;}
+
+    /* ── LAYOUT ── */
+    .player-layout{
+      display:grid;
+      grid-template-columns:1fr var(--sidebar-w);
+      min-height:100vh;
+      padding-top:var(--topbar-h);
+    }
+
+    /* ── VIDEO AREA ── */
+    .video-area{display:flex;flex-direction:column;}
+
+    .video-wrap{
+      position:relative;background:#000;
+      aspect-ratio:16/9;width:100%;
+      overflow:hidden;
+    }
+    .video-placeholder{
+      width:100%;height:100%;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,#0d0d0d,#1a1000);
+      gap:20px;cursor:pointer;user-select:none;
+    }
+    .video-placeholder.playing .play-overlay{opacity:0;}
+    .play-overlay{
+      width:72px;height:72px;border-radius:50%;
+      background:rgba(245,166,35,0.15);border:2px solid rgba(245,166,35,0.5);
+      display:flex;align-items:center;justify-content:center;color:var(--gold);
+      transition:.3s;
+    }
+    .video-placeholder:hover .play-overlay{background:rgba(245,166,35,0.25);transform:scale(1.05);}
+    .video-lesson-title{font-size:16px;font-weight:600;opacity:.7;}
+    .video-lesson-num{font-size:12px;color:var(--grey);}
+
+    /* Fake progress bar */
+    .video-controls{
+      position:absolute;bottom:0;left:0;right:0;
+      padding:0 16px 12px;
+      background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);
+      opacity:0;transition:.3s;
+    }
+    .video-wrap:hover .video-controls{opacity:1;}
+    .scrubber{
+      width:100%;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;
+      cursor:pointer;margin-bottom:10px;position:relative;
+    }
+    .scrubber-fill{height:100%;background:var(--gold);border-radius:2px;width:0%;pointer-events:none;}
+    .scrubber::after{content:'';position:absolute;top:-6px;bottom:-6px;left:0;right:0;}
+    .ctrl-row{display:flex;align-items:center;gap:12px;}
+    .ctrl-btn{background:none;border:none;color:rgba(255,255,255,0.8);cursor:pointer;padding:4px;border-radius:5px;display:flex;align-items:center;transition:.2s;}
+    .ctrl-btn:hover{color:var(--white);}
+    .ctrl-time{font-size:12px;color:rgba(255,255,255,0.6);font-variant-numeric:tabular-nums;}
+    .ctrl-spacer{flex:1;}
+
+    /* Completed overlay */
+    .lesson-complete-overlay{
+      position:absolute;inset:0;
+      background:rgba(0,0,0,0.75);
+      display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+    }
+    .lesson-complete-overlay.show{display:flex;}
+    .complete-icon{width:64px;height:64px;border-radius:50%;background:rgba(34,197,94,0.15);border:2px solid rgba(34,197,94,0.5);display:flex;align-items:center;justify-content:center;color:var(--success);}
+    .complete-text{font-size:18px;font-weight:700;}
+    .next-btn{display:flex;align-items:center;gap:8px;padding:12px 24px;background:var(--gold);color:#0c0c0c;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s;}
+    .next-btn:hover{transform:translateY(-1px);}
+
+    /* ── LESSON INFO ── */
+    .lesson-info{padding:24px 28px;border-bottom:1px solid var(--border);}
+    .lesson-info h2{font-size:20px;font-weight:800;margin-bottom:8px;}
+    .lesson-meta{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--grey);}
+    .lesson-meta span{display:flex;align-items:center;gap:5px;}
+    .badge-free{font-size:11px;font-weight:700;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);color:var(--success);padding:2px 8px;border-radius:50px;}
+
+    /* ── CONTENT TABS ── */
+    .content-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);padding:0 28px;}
+    .content-tab{padding:14px 18px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--grey);font-family:inherit;border-bottom:2px solid transparent;margin-bottom:-1px;transition:.2s;}
+    .content-tab.active{color:var(--white);border-bottom-color:var(--gold);}
+    .tab-content{display:none;padding:24px 28px;}
+    .tab-content.active{display:block;}
+
+    /* Materials */
+    .material-item{display:flex;align-items:center;gap:14px;padding:14px;border-radius:10px;background:var(--b3);border:1px solid var(--border);margin-bottom:10px;}
+    .material-icon{width:40px;height:40px;border-radius:9px;background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.2);display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0;}
+    .material-info{flex:1;}
+    .material-name{font-size:13px;font-weight:600;margin-bottom:2px;}
+    .material-size{font-size:11px;color:var(--grey);}
+    .dl-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:var(--b4);border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:var(--white);transition:.2s;}
+    .dl-btn:hover{border-color:rgba(245,166,35,0.4);color:var(--gold);}
+
+    /* Notes */
+    .notes-area{width:100%;min-height:160px;background:var(--b3);border:1px solid var(--border);border-radius:10px;color:var(--white);font-size:14px;font-family:inherit;padding:14px;resize:vertical;outline:none;}
+    .notes-area:focus{border-color:var(--gold);}
+    .notes-save{display:flex;align-items:center;justify-content:space-between;margin-top:10px;font-size:12px;color:var(--grey);}
+    .save-btn{padding:7px 16px;background:var(--gold);color:#0c0c0c;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;}
+
+    /* Comments */
+    .comment-input-wrap{display:flex;gap:10px;margin-bottom:20px;}
+    .comment-input{flex:1;background:var(--b3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--white);font-size:13px;font-family:inherit;outline:none;resize:none;min-height:44px;}
+    .comment-input:focus{border-color:var(--gold);}
+    .comment-send{padding:10px 18px;background:var(--gold);color:#0c0c0c;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;}
+    .comment-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);}
+    .comment-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#0c0c0c;flex-shrink:0;}
+    .comment-body{flex:1;}
+    .comment-name{font-size:13px;font-weight:600;margin-bottom:4px;}
+    .comment-text{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;}
+    .comment-time{font-size:11px;color:var(--grey2);margin-top:4px;}
+
+    /* ── SIDEBAR (modules) ── */
+    .modules-sidebar{
+      border-left:1px solid var(--border);
+      background:var(--b2);
+      overflow-y:auto;
+      height:calc(100vh - var(--topbar-h));
+      position:sticky;top:var(--topbar-h);
+    }
+    .sidebar-head{padding:16px 18px;border-bottom:1px solid var(--border);font-size:14px;font-weight:700;}
+    .module-group{border-bottom:1px solid var(--border);}
+    .module-header{
+      display:flex;align-items:center;gap:12px;
+      padding:14px 18px;cursor:pointer;
+      background:transparent;border:none;width:100%;text-align:left;
+      color:var(--white);font-family:inherit;transition:.2s;
+    }
+    .module-header:hover{background:rgba(255,255,255,0.03);}
+    .module-header-text{flex:1;}
+    .module-name{font-size:13px;font-weight:700;}
+    .module-meta{font-size:11px;color:var(--grey);margin-top:1px;}
+    .module-toggle{color:var(--grey);transition:.3s;}
+    .module-group.open .module-toggle{transform:rotate(90deg);}
+    .module-lessons{display:none;}
+    .module-group.open .module-lessons{display:block;}
+
+    .lesson-item{
+      display:flex;align-items:center;gap:12px;
+      padding:11px 18px 11px 48px;
+      cursor:pointer;transition:.2s;border:none;background:transparent;width:100%;text-align:left;font-family:inherit;
+    }
+    .lesson-item:hover{background:rgba(255,255,255,0.04);}
+    .lesson-item.active{background:rgba(245,166,35,0.08);}
+    .lesson-item.active .lesson-item-title{color:var(--gold);}
+    .lesson-check{
+      width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;
+      color:transparent;transition:.2s;
+    }
+    .lesson-item.completed .lesson-check{background:var(--success);border-color:var(--success);color:#fff;}
+    .lesson-item.active .lesson-check{border-color:var(--gold);}
+    .lesson-item-content{flex:1;}
+    .lesson-item-title{font-size:12px;font-weight:500;color:rgba(255,255,255,0.7);line-height:1.4;}
+    .lesson-item-dur{font-size:11px;color:var(--grey);margin-top:2px;}
+    .lesson-lock{color:var(--grey2);flex-shrink:0;}
+
+    /* Complete lesson btn */
+    .complete-lesson-wrap{padding:20px 28px;border-top:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+    .btn-complete{display:flex;align-items:center;gap:8px;padding:11px 22px;background:var(--gold);color:#0c0c0c;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s;}
+    .btn-complete:hover{transform:translateY(-1px);}
+    .btn-complete.done{background:rgba(34,197,94,0.15);color:var(--success);border:1px solid rgba(34,197,94,0.3);}
+    .btn-next-lesson{display:flex;align-items:center;gap:8px;padding:11px 22px;background:var(--b3);color:var(--white);border:1px solid var(--border);border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;}
+    .btn-next-lesson:hover{border-color:rgba(255,255,255,0.2);}
+
+    /* ── LOCKED LESSON ── */
+    .locked-lesson{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:60px 40px;text-align:center;}
+    .lock-icon{width:80px;height:80px;border-radius:20px;background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.2);display:flex;align-items:center;justify-content:center;color:var(--gold);}
+    .locked-lesson h3{font-size:20px;font-weight:800;}
+    .locked-lesson p{font-size:14px;color:var(--grey);line-height:1.7;max-width:400px;}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){
+      .player-layout{grid-template-columns:1fr;}
+      .modules-sidebar{display:none;}
+      .modules-sidebar.mobile-open{display:block;position:fixed;top:var(--topbar-h);right:0;bottom:0;width:min(320px,100vw);z-index:200;box-shadow:-8px 0 32px rgba(0,0,0,0.6);}
+    }
+    @media(max-width:600px){
+      .lesson-info{padding:16px;}
+      .lesson-info h2{font-size:16px;}
+      .tab-content{padding:16px;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="back-btn" onclick="goBack()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+    Voltar
+  </button>
+  <div class="course-title-bar" id="courseTitleBar">Carregando...</div>
+  <div class="progress-bar-top">
+    <div class="progress-bar-fill" id="topProgressFill" style="width:0%"></div>
+  </div>
+  <span class="progress-label" id="topProgressLabel">0%</span>
+  <button class="back-btn" id="modulesToggleBtn" onclick="toggleMobileModules()" style="display:none;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    Aulas
+  </button>
+  <div class="topbar-avatar" id="topAvatar">?</div>
+</header>
+
+<!-- LAYOUT -->
+<div class="player-layout">
+
+  <!-- MAIN VIDEO AREA -->
+  <div class="video-area">
+
+    <!-- VIDEO -->
+    <div class="video-wrap" id="videoWrap">
+      <div class="video-placeholder" id="videoPlaceholder" onclick="togglePlay()">
+        <!-- Background grid -->
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(245,166,35,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(245,166,35,0.04) 1px,transparent 1px);background-size:40px 40px;"></div>
+        <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:16px;">
+          <div class="play-overlay" id="playOverlay">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div style="text-align:center;">
+            <div class="video-lesson-title" id="videoLessonTitle">Seleciona uma aula</div>
+            <div class="video-lesson-num" id="videoLessonNum">—</div>
+          </div>
+        </div>
+        <!-- Fake timer display -->
+        <div id="videoTimer" style="position:absolute;bottom:60px;left:50%;transform:translateX(-50%);font-size:32px;font-weight:900;color:rgba(245,166,35,0.15);display:none;font-variant-numeric:tabular-nums;"></div>
+      </div>
+
+      <!-- Controls -->
+      <div class="video-controls" id="videoControls">
+        <div class="scrubber" id="scrubber" onclick="seek(event)">
+          <div class="scrubber-fill" id="scrubberFill"></div>
+        </div>
+        <div class="ctrl-row">
+          <button class="ctrl-btn" onclick="togglePlay()" id="ctrlPlayBtn">
+            <svg id="ctrlPlayIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+          <button class="ctrl-btn" onclick="skip(-10)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+          </button>
+          <button class="ctrl-btn" onclick="skip(10)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+          </button>
+          <span class="ctrl-time" id="ctrlTime">0:00 / 0:00</span>
+          <div class="ctrl-spacer"></div>
+          <button class="ctrl-btn" id="speedBtn" onclick="changeSpeed()">1×</button>
+          <button class="ctrl-btn" onclick="toggleFullscreen()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Completed overlay -->
+      <div class="lesson-complete-overlay" id="completedOverlay">
+        <div class="complete-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="complete-text">Aula concluída! 🎉</div>
+        <button class="next-btn" onclick="goToNextLesson()">
+          Próxima aula
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <!-- Locked overlay -->
+      <div id="lockedOverlay" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,0.85);display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:40px;text-align:center;">
+        <div class="lock-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+        <div>
+          <h3 style="font-size:18px;font-weight:800;margin-bottom:8px;">Aula bloqueada</h3>
+          <p style="font-size:14px;color:var(--grey);max-width:340px;line-height:1.7;">Adquire o curso completo para ter acesso a esta aula e a todo o conteúdo.</p>
+        </div>
+        <button onclick="buyCourse()" style="display:flex;align-items:center;gap:8px;padding:13px 28px;background:var(--gold);color:#0c0c0c;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+          Comprar curso
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON INFO -->
+    <div class="lesson-info">
+      <h2 id="lessonTitle">Seleciona uma aula para começar</h2>
+      <div class="lesson-meta">
+        <span id="lessonDuration"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>—</span>
+        <span id="lessonInstructor"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>—</span>
+        <span id="lessonFreeTag"></span>
+      </div>
+    </div>
+
+    <!-- COMPLETE LESSON BUTTON -->
+    <div class="complete-lesson-wrap" id="completeLessonWrap" style="display:none;">
+      <button class="btn-complete" id="btnComplete" onclick="markComplete()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Marcar como concluída
+      </button>
+      <button class="btn-next-lesson" onclick="goToNextLesson()">
+        Próxima aula
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+
+    <!-- CONTENT TABS -->
+    <div class="content-tabs">
+      <button class="content-tab active" onclick="switchContentTab('tab-overview',this)">Visão Geral</button>
+      <button class="content-tab" onclick="switchContentTab('tab-materiais',this)">Materiais</button>
+      <button class="content-tab" onclick="switchContentTab('tab-notas',this)">As minhas notas</button>
+      <button class="content-tab" onclick="switchContentTab('tab-comentarios',this)">Comentários</button>
+    </div>
+
+    <!-- OVERVIEW TAB -->
+    <div class="tab-content active" id="tab-overview">
+      <div id="courseOverview">
+        <p style="color:var(--grey);">Seleciona uma aula para ver a descrição.</p>
+      </div>
+    </div>
+
+    <!-- MATERIAIS TAB -->
+    <div class="tab-content" id="tab-materiais">
+      <div id="materiaisContent">
+        <div class="material-item">
+          <div class="material-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="material-info"><div class="material-name">Slides da aula (PDF)</div><div class="material-size">2.4 MB</div></div>
+          <button class="dl-btn" onclick="showToast('Download iniciado!','success')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </button>
+        </div>
+        <div class="material-item">
+          <div class="material-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <div class="material-info"><div class="material-name">Templates e Exercícios</div><div class="material-size">8.1 MB · ZIP</div></div>
+          <button class="dl-btn" onclick="showToast('Download iniciado!','success')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTAS TAB -->
+    <div class="tab-content" id="tab-notas">
+      <textarea class="notes-area" id="notesArea" placeholder="Escreve as tuas notas aqui..."></textarea>
+      <div class="notes-save">
+        <span id="noteSaved" style="color:var(--grey2);">As notas guardam automaticamente</span>
+        <button class="save-btn" onclick="saveNote()">Guardar</button>
+      </div>
+    </div>
+
+    <!-- COMENTÁRIOS TAB -->
+    <div class="tab-content" id="tab-comentarios">
+      <div class="comment-input-wrap">
+        <div class="comment-avatar" id="commentAvatar">?</div>
+        <textarea class="comment-input" id="commentInput" placeholder="Faz uma pergunta ou deixa um comentário..." rows="2"></textarea>
+        <button class="comment-send" onclick="postComment()">Enviar</button>
+      </div>
+      <div id="commentsList">
+        <div class="comment-item">
+          <div class="comment-avatar">AL</div>
+          <div class="comment-body">
+            <div class="comment-name">António Lopes</div>
+            <div class="comment-text">Excelente aula! Muito bem explicado, já estou a implementar as estratégias do módulo 1.</div>
+            <div class="comment-time">há 2 dias</div>
+          </div>
+        </div>
+        <div class="comment-item">
+          <div class="comment-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">MF</div>
+          <div class="comment-body">
+            <div class="comment-name">Maria Fonseca</div>
+            <div class="comment-text">Ótimo conteúdo! Já consegui aumentar as visitas do meu negócio em 40% com as técnicas ensinadas aqui.</div>
+            <div class="comment-time">há 5 dias</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /video-area -->
+
+  <!-- MODULES SIDEBAR -->
+  <aside class="modules-sidebar" id="modulesSidebar">
+    <div class="sidebar-head">
+      Conteúdo do curso
+      <span id="sidebarProgress" style="float:right;font-size:12px;font-weight:500;color:var(--grey);">0%</span>
+    </div>
+    <div id="modulesContainer"></div>
+  </aside>
+
+</div><!-- /player-layout -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase.js"></script>
+<script src="../supabase.js"></script>
+<script src="../nzimbo-auth.js"></script>
+<script src="../nzimbo-courses.js"></script>
+<script>
+'use strict';
+
+// ── STATE ──────────────────────────────────────────────
+let courseId    = new URLSearchParams(location.search).get('id');
+let course      = null;
+let session     = null;
+let currentMod  = null;
+let currentLes  = null;
+let isPlaying   = false;
+let playProgress= 0;
+let playTimer   = null;
+let lessonDuration = 60; // seconds (simulated)
+let lessonElapsed  = 0;
+let speeds = [1, 1.25, 1.5, 2]; let speedIdx = 0;
+let enrolled = false;
+
+// ── INIT ───────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  session = NzimboAuth.getSession();
+  if (!session) { window.location.href = '../auth/login.html'; return; }
+
+  document.getElementById('topAvatar').textContent = session.avatar || 'U';
+  document.getElementById('commentAvatar').textContent = session.avatar || 'U';
+
+  course = await NzimboCourses.getCourse(courseId);
+  if (!course) {
+    document.getElementById('courseTitleBar').textContent = 'Curso não encontrado';
+    return;
+  }
+
+  document.title = course.title + ' – Nzimbo';
+  document.getElementById('courseTitleBar').textContent = course.title;
+
+  // Check enrollment
+  enrolled = await NzimboCourses.isEnrolled(courseId);
+
+  buildModules();
+  updateProgress();
+
+  // Auto-select first free lesson
+  const firstFree = getFirstLesson();
+  if (firstFree) selectLesson(firstFree.moduleId, firstFree.lessonId);
+
+  // Mobile
+  if (window.innerWidth <= 1024) document.getElementById('modulesToggleBtn').style.display = 'flex';
+
+  // Notes
+  // Carregar notas do Supabase
+  const savedNote = await NzimboCourses.getNote(courseId);
+  document.getElementById('notesArea').value = savedNote;
+  let autoSaveTimer;
+  document.getElementById('notesArea').addEventListener('input', () => {
+    clearTimeout(autoSaveTimer);
+    document.getElementById('noteSaved').textContent = 'A guardar…';
+    autoSaveTimer = setTimeout(async () => {
+      await NzimboCourses.saveNote(courseId, document.getElementById('notesArea').value);
+      document.getElementById('noteSaved').textContent = '✓ Guardado automaticamente';
+    }, 1000);
+  });
+});
+
+// ── BUILD MODULES ──────────────────────────────────────
+function buildModules() {
+  const container = document.getElementById('modulesContainer');
+  const prog = await NzimboCourses.getProgress(courseId);
+  const completed = prog ? prog.completedLessons : [];
+  let html = '';
+  course.modules.forEach((mod, mi) => {
+    const doneCount = mod.lessons.filter(l => completed.includes(l.id)).length;
+    html += `<div class="module-group open" id="mod_${mod.id}">
+      <button class="module-header" onclick="toggleModule('${mod.id}')">
+        <div class="module-header-text">
+          <div class="module-name">${mod.title}</div>
+          <div class="module-meta">${doneCount}/${mod.lessons.length} aulas concluídas</div>
+        </div>
+        <svg class="module-toggle" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <div class="module-lessons">`;
+    mod.lessons.forEach((les, li) => {
+      const isDone  = completed.includes(les.id);
+      const isLocked = !les.free && !enrolled;
+      html += `<button class="lesson-item${isDone?' completed':''}" id="lesItem_${les.id}" onclick="selectLesson('${mod.id}','${les.id}')">
+        <div class="lesson-check">
+          ${isDone?'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>':''}
+        </div>
+        <div class="lesson-item-content">
+          <div class="lesson-item-title">${les.title}</div>
+          <div class="lesson-item-dur">${les.duration}${les.free?' · <span style="color:var(--success);font-size:10px;">GRÁTIS</span>':''}</div>
+        </div>
+        ${isLocked?`<svg class="lesson-lock" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>`:''}
+      </button>`;
+    });
+    html += `</div></div>`;
+  });
+  container.innerHTML = html;
+}
+
+// ── SELECT LESSON ──────────────────────────────────────
+function selectLesson(modId, lesId) {
+  // Pause current
+  pausePlay();
+
+  const mod = course.modules.find(m => m.id === modId);
+  if (!mod) return;
+  const les = mod.lessons.find(l => l.id === lesId);
+  if (!les) return;
+
+  currentMod = mod; currentLes = les;
+  const isLocked = !les.free && !enrolled;
+
+  // Update active state in sidebar
+  document.querySelectorAll('.lesson-item').forEach(el => el.classList.remove('active'));
+  document.getElementById(`lesItem_${les.id}`)?.classList.add('active');
+
+  // Update info
+  document.getElementById('lessonTitle').textContent = les.title;
+  document.getElementById('videoLessonTitle').textContent = les.title;
+  document.getElementById('videoLessonNum').textContent = mod.title;
+  document.getElementById('lessonDuration').innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${les.duration}`;
+  document.getElementById('lessonInstructor').innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>${course.instructor}`;
+
+  const freeTag = document.getElementById('lessonFreeTag');
+  freeTag.innerHTML = les.free ? '<span class="badge-free">Grátis</span>' : '';
+
+  // Overview
+  document.getElementById('courseOverview').innerHTML = `
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:10px;">${les.title}</h3>
+    <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.8;">
+      ${mod.title} · Duração: ${les.duration}
+    </p>
+    <div style="margin-top:16px;padding:16px;background:var(--b3);border:1px solid var(--border);border-radius:10px;">
+      <p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.8;">
+        Nesta aula aprenderás os conceitos fundamentais de ${les.title.toLowerCase()}, com exemplos práticos aplicados ao mercado angolano.
+      </p>
+    </div>`;
+
+  // Locked?
+  const lockedEl = document.getElementById('lockedOverlay');
+  if (isLocked) {
+    lockedEl.style.display = 'flex';
+    document.getElementById('completeLessonWrap').style.display = 'none';
+  } else {
+    lockedEl.style.display = 'none';
+    document.getElementById('completeLessonWrap').style.display = 'flex';
+    // Reset play
+    resetPlayer(les);
+    // Check if already completed
+    const prog = await NzimboCourses.getProgress(courseId);
+    const isDone = prog && prog.completedLessons.includes(les.id);
+    const btnC = document.getElementById('btnComplete');
+    if (isDone) {
+      btnC.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Aula concluída';
+      btnC.classList.add('done');
+    } else {
+      btnC.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Marcar como concluída';
+      btnC.classList.remove('done');
+    }
+    document.getElementById('completedOverlay').classList.remove('show');
+  }
+
+  // Scroll to top on mobile
+  if (window.innerWidth <= 1024) {
+    document.getElementById('modulesSidebar').classList.remove('mobile-open');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+
+// ── PLAYER ────────────────────────────────────────────
+function resetPlayer(les) {
+  isPlaying = false; playProgress = 0; lessonElapsed = 0;
+  clearInterval(playTimer);
+  // Estimate duration in seconds from string like "45min" or "1h 20min"
+  let secs = 0;
+  const h = les.duration.match(/(\d+)h/); const m = les.duration.match(/(\d+)min/);
+  if (h) secs += parseInt(h[1]) * 3600;
+  if (m) secs += parseInt(m[1]) * 60;
+  lessonDuration = secs || 300;
+  document.getElementById('scrubberFill').style.width = '0%';
+  updateTimeDisplay();
+  document.getElementById('ctrlPlayIcon').innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+  document.getElementById('playOverlay').innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  document.getElementById('videoTimer').style.display = 'none';
+}
+
+function togglePlay() {
+  if (!currentLes) return;
+  isPlaying = !isPlaying;
+  if (isPlaying) {
+    document.getElementById('ctrlPlayIcon').innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    document.getElementById('playOverlay').innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+    document.getElementById('videoTimer').style.display = 'block';
+    document.getElementById('videoPlaceholder').classList.add('playing');
+    playTimer = setInterval(() => {
+      lessonElapsed = Math.min(lessonElapsed + speeds[speedIdx], lessonDuration);
+      playProgress = lessonElapsed / lessonDuration;
+      document.getElementById('scrubberFill').style.width = (playProgress*100)+'%';
+      updateTimeDisplay();
+      // Show timer countdown
+      const rem = lessonDuration - lessonElapsed;
+      document.getElementById('videoTimer').textContent = formatTime(rem);
+      if (lessonElapsed >= lessonDuration) { lessonComplete(); }
+    }, 1000);
+  } else {
+    pausePlay();
+  }
+}
+
+function pausePlay() {
+  isPlaying = false; clearInterval(playTimer);
+  document.getElementById('ctrlPlayIcon').innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+  document.getElementById('playOverlay').innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  document.getElementById('videoPlaceholder').classList.remove('playing');
+}
+
+function skip(secs) {
+  lessonElapsed = Math.max(0, Math.min(lessonElapsed + secs, lessonDuration));
+  playProgress = lessonElapsed / lessonDuration;
+  document.getElementById('scrubberFill').style.width = (playProgress*100)+'%';
+  updateTimeDisplay();
+}
+
+function seek(e) {
+  const rect = document.getElementById('scrubber').getBoundingClientRect();
+  const frac = Math.max(0, Math.min((e.clientX - rect.left) / rect.width, 1));
+  lessonElapsed = frac * lessonDuration; playProgress = frac;
+  document.getElementById('scrubberFill').style.width = (frac*100)+'%';
+  updateTimeDisplay();
+}
+
+function updateTimeDisplay() {
+  document.getElementById('ctrlTime').textContent = formatTime(lessonElapsed) + ' / ' + formatTime(lessonDuration);
+}
+
+function formatTime(s) {
+  const h = Math.floor(s/3600); const m = Math.floor((s%3600)/60); const sec = Math.floor(s%60);
+  if (h>0) return h+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
+  return m+':'+String(sec).padStart(2,'0');
+}
+
+function changeSpeed() {
+  speedIdx = (speedIdx+1) % speeds.length;
+  document.getElementById('speedBtn').textContent = speeds[speedIdx]+'×';
+}
+
+function toggleFullscreen() {
+  const wrap = document.getElementById('videoWrap');
+  if (!document.fullscreenElement) wrap.requestFullscreen?.();
+  else document.exitFullscreen?.();
+}
+
+function lessonComplete() {
+  pausePlay();
+  document.getElementById('completedOverlay').classList.add('show');
+  markComplete();
+}
+
+// ── MARK COMPLETE ──────────────────────────────────────
+function markComplete() {
+  if (!currentLes || !enrolled) return;
+  NzimboCourses.markLesson(courseId, currentLes.id);
+  const btn = document.getElementById('btnComplete');
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Aula concluída';
+  btn.classList.add('done');
+  // Update sidebar
+  document.getElementById(`lesItem_${currentLes.id}`)?.classList.add('completed');
+  const el = document.getElementById(`lesItem_${currentLes.id}`)?.querySelector('.lesson-check');
+  if (el) el.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  updateProgress();
+  showToast('Aula marcada como concluída!', 'success');
+}
+
+// ── NEXT LESSON ────────────────────────────────────────
+function goToNextLesson() {
+  document.getElementById('completedOverlay').classList.remove('show');
+  if (!course || !currentMod || !currentLes) return;
+  // Find next lesson in current module or next module
+  for (let mi = 0; mi < course.modules.length; mi++) {
+    const mod = course.modules[mi];
+    for (let li = 0; li < mod.lessons.length; li++) {
+      if (mod.id === currentMod.id && mod.lessons[li].id === currentLes.id) {
+        if (li + 1 < mod.lessons.length) { selectLesson(mod.id, mod.lessons[li+1].id); return; }
+        if (mi + 1 < course.modules.length) {
+          const nextMod = course.modules[mi+1];
+          if (nextMod.lessons.length) { selectLesson(nextMod.id, nextMod.lessons[0].id); return; }
+        }
+        showToast('Chegaste ao fim do curso! 🎉', 'success'); return;
+      }
+    }
+  }
+}
+
+// ── PROGRESS ───────────────────────────────────────────
+function updateProgress() {
+  const prog = await NzimboCourses.getProgress(courseId);
+  const pct = prog ? prog.percent : 0;
+  document.getElementById('topProgressFill').style.width = pct + '%';
+  document.getElementById('topProgressLabel').textContent = pct + '%';
+  document.getElementById('sidebarProgress').textContent = pct + '%';
+}
+
+// ── BUY COURSE ─────────────────────────────────────────
+function buyCourse() {
+  // Simulate purchase → enroll
+  NzimboCourses.enrollCourse(courseId);
+  enrolled = true;
+  document.getElementById('lockedOverlay').style.display = 'none';
+  document.getElementById('completeLessonWrap').style.display = 'flex';
+  buildModules();
+  showToast('Curso adquirido! Bem-vindo ao curso completo. 🎉', 'success');
+  setTimeout(() => { if (currentLes) selectLesson(currentMod.id, currentLes.id); }, 500);
+}
+
+// ── MODULE TOGGLE ──────────────────────────────────────
+function toggleModule(modId) {
+  document.getElementById('mod_'+modId)?.classList.toggle('open');
+}
+
+// ── HELPERS ────────────────────────────────────────────
+function getFirstLesson() {
+  for (const mod of course.modules) {
+    if (mod.lessons && mod.lessons.length) return { moduleId: mod.id, lessonId: mod.lessons[0].id };
+  }
+  return null;
+}
+
+function switchContentTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.content-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleMobileModules() {
+  document.getElementById('modulesSidebar').classList.toggle('mobile-open');
+}
+
+async function saveNote() {
+  await NzimboCourses.saveNote(courseId, document.getElementById('notesArea').value);
+  document.getElementById('noteSaved').textContent = '✓ Guardado!';
+  showToast('Notas guardadas!', 'success');
+}
+
+function postComment() {
+  const inp = document.getElementById('commentInput');
+  const text = inp.value.trim();
+  if (!text) return;
+  const div = document.createElement('div');
+  div.className = 'comment-item';
+  div.innerHTML = `<div class="comment-avatar">${session.avatar||'U'}</div>
+    <div class="comment-body">
+      <div class="comment-name">${session.firstName} ${session.lastName||''}</div>
+      <div class="comment-text">${text}</div>
+      <div class="comment-time">agora mesmo</div>
+    </div>`;
+  document.getElementById('commentsList').prepend(div);
+  inp.value = '';
+  showToast('Comentário publicado!', 'success');
+}
+
+function goBack() {
+  history.back() || (window.location.href = 'meus-cursos.html');
+}
+
+function showToast(msg, type) {
+  type = type || 'info';
+  const colors = {success:['#0a1f0a','rgba(34,197,94,0.3)','#86efac'],error:['#1f0a0a','rgba(239,68,68,0.3)','#fca5a5'],info:['#1a1a1a','rgba(255,255,255,0.12)','#fff']};
+  const [bg,border,color] = colors[type]||colors.info;
+  const t = document.createElement('div');
+  t.style.cssText = `position:fixed;bottom:24px;right:24px;background:${bg};border:1px solid ${border};color:${color};padding:13px 20px;border-radius:12px;font-size:14px;font-weight:500;z-index:9999;max-width:340px;box-shadow:0 8px 32px rgba(0,0,0,0.5);font-family:inherit;transform:translateY(12px);opacity:0;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(() => { t.style.transform='translateY(0)'; t.style.opacity='1'; });
+  setTimeout(() => { t.style.transform='translateY(12px)'; t.style.opacity='0'; setTimeout(()=>t.remove(),320); }, 3200);
+}
+</script>
+</body>
+</html>

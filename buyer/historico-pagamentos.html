@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <meta name="theme-color" content="#0c0c0c"/>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Histórico de Pagamentos – Nzimbo</title>
+  <link rel="stylesheet" href="buyer-shared.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<header class="topbar">
+  <a href="../home.html" class="topbar-logo"><div class="topbar-logo-icon"></div><span class="topbar-logo-text">Nzimbo</span></a>
+  <div class="topbar-search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder="Pesquisar..."/></div>
+  <div class="topbar-actions">
+    <a href="notificacoes.html" class="topbar-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><div class="notif-badge"></div></a>
+    <div class="topbar-user"><div class="topbar-avatar">AL</div><div class="topbar-user-info"><span class="topbar-user-name">António Lopes</span><span class="topbar-user-role">Comprador</span></div></div>
+  </div>
+</header>
+<aside class="sidebar" id="sidebar"></aside>
+<main class="main-content">
+
+  <div class="page-header reveal">
+    <div><h1 class="page-title">Histórico de Pagamentos</h1><p class="page-subtitle">Todos os teus pagamentos e transações</p></div>
+    <div class="page-header-actions">
+      <button class="btn btn-outline" onclick="exportHistory()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Exportar PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Resumo -->
+  <div class="stats-grid reveal" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+    <div class="stat-card">
+      <div class="stat-card-top"><div class="stat-card-icon gold"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div></div>
+      <div class="stat-value">45.200 Kz</div><div class="stat-label">Total gasto</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-top"><div class="stat-card-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg></div></div>
+      <div class="stat-value">12</div><div class="stat-label">Transações</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-top"><div class="stat-card-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div></div>
+      <div class="stat-value">8.300 Kz</div><div class="stat-label">Poupado em descontos</div>
+    </div>
+  </div>
+
+  <div class="card reveal reveal-delay-1">
+    <div class="card-header">
+      <span class="card-title">Transações</span>
+      <select class="form-input form-select" style="width:auto;padding:7px 32px 7px 12px;font-size:13px;background:var(--b4);">
+        <option>Últimos 30 dias</option><option>Últimos 3 meses</option><option>Este ano</option><option>Todos</option>
+      </select>
+    </div>
+    <div class="card-body" style="padding:0;">
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Nº Transação</th><th>Produto</th><th>Data</th><th>Método</th><th>Valor</th><th>Estado</th><th>Recibo</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td style="font-size:12px;color:var(--grey);font-family:monospace;">#NZB-2024-0089</td>
+              <td><div style="font-size:13px;font-weight:600;">UI/UX Design com Figma</div></td>
+              <td style="font-size:13px;color:var(--grey);">20 Nov 2024</td>
+              <td><span class="badge badge-gold" style="font-size:11px;">Multicaixa</span></td>
+              <td style="font-weight:700;color:var(--gold);">6.800 Kz</td>
+              <td><span class="badge badge-green">Pago</span></td>
+              <td><button class="btn btn-dark btn-sm" onclick="downloadReceipt('NZB-2024-0089')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button></td>
+            </tr>
+            <tr>
+              <td style="font-size:12px;color:var(--grey);font-family:monospace;">#NZB-2024-0072</td>
+              <td><div style="font-size:13px;font-weight:600;">Marketing Digital do Zero</div></td>
+              <td style="font-size:13px;color:var(--grey);">15 Nov 2024</td>
+              <td><span class="badge badge-gold" style="font-size:11px;">Multicaixa</span></td>
+              <td style="font-weight:700;color:var(--gold);">5.500 Kz</td>
+              <td><span class="badge badge-green">Pago</span></td>
+              <td><button class="btn btn-dark btn-sm" onclick="downloadReceipt('NZB-2024-0072')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button></td>
+            </tr>
+            <tr>
+              <td style="font-size:12px;color:var(--grey);font-family:monospace;">#NZB-2024-0061</td>
+              <td><div style="font-size:13px;font-weight:600;">Flutter: Apps Mobile</div></td>
+              <td style="font-size:13px;color:var(--grey);">02 Out 2024</td>
+              <td><span class="badge badge-grey" style="font-size:11px;">Cartão</span></td>
+              <td style="font-weight:700;color:var(--gold);">8.200 Kz</td>
+              <td><span class="badge badge-green">Pago</span></td>
+              <td><button class="btn btn-dark btn-sm" onclick="downloadReceipt('NZB-2024-0061')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button></td>
+            </tr>
+            <tr>
+              <td style="font-size:12px;color:var(--grey);font-family:monospace;">#NZB-2024-0045</td>
+              <td><div style="font-size:13px;font-weight:600;">50 Templates Instagram</div></td>
+              <td style="font-size:13px;color:var(--grey);">10 Set 2024</td>
+              <td><span class="badge badge-blue" style="font-size:11px;">PayPal</span></td>
+              <td style="font-weight:700;color:var(--gold);">3.800 Kz</td>
+              <td><span class="badge badge-green">Pago</span></td>
+              <td><button class="btn btn-dark btn-sm" onclick="downloadReceipt('NZB-2024-0045')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span style="font-size:13px;color:var(--grey);">4 de 12 transações</span>
+      <div style="display:flex;gap:6px;"><button class="btn btn-dark btn-sm">← Anterior</button><button class="btn btn-dark btn-sm">Próximo →</button></div>
+    </div>
+  </div>
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase.js"></script>
+<script src="../nzimbo-auth.js"></script>
+<script src="../nzimbo-courses.js"></script>
+<script src="buyer-shared.js"></script>
+<script>
+function exportHistory() { showToast("A gerar PDF do histórico...", "info"); setTimeout(() => showToast("PDF gerado e pronto para download!", "success"), 1800); }
+function downloadReceipt(id) { showToast("Recibo #" + id + " a transferir...", "success"); }
+</script>
+
+<script>
+window.addEventListener('DOMContentLoaded', async () => {
+  await new Promise(r => setTimeout(r, 200));
+  const tbody = document.querySelector('table tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--grey);">A carregar histórico...</td></tr>';
+  try {
+    const purchases = await NzimboCourses.getPurchaseHistory();
+    if (!purchases.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--grey);">Ainda sem transações. Compra o teu primeiro curso!</td></tr>';
+      return;
+    }
+    const total = purchases.reduce((s,p) => s+(p.amount||0), 0);
+    document.querySelectorAll('.stat-value').forEach((el,i) => {
+      if (i===0) el.textContent = total.toLocaleString('pt-AO') + ' Kz';
+      if (i===1) el.textContent = purchases.length;
+    });
+    tbody.innerHTML = purchases.map(p => {
+      const name = p.courses?.title || p.products?.title || 'Produto';
+      const date = new Date(p.purchased_at).toLocaleDateString('pt-AO',{day:'2-digit',month:'short',year:'numeric'});
+      const statusBadge = p.status==='paid' ? 'badge-green' : p.status==='pending' ? 'badge-gold' : 'badge-grey';
+      const statusLabel = p.status==='paid' ? 'Pago' : p.status==='pending' ? 'Pendente' : 'Reembolsado';
+      return `<tr>
+        <td style="font-size:12px;color:var(--grey);font-family:monospace;">#NZB-${p.id.slice(-8).toUpperCase()}</td>
+        <td><div style="font-size:13px;font-weight:600;">${name}</div></td>
+        <td style="font-size:13px;color:var(--grey);">${date}</td>
+        <td><span class="badge badge-gold" style="font-size:11px;">${p.method||'Multicaixa'}</span></td>
+        <td style="font-weight:700;color:var(--gold);">${(p.amount||0).toLocaleString('pt-AO')} Kz</td>
+        <td><span class="badge ${statusBadge}">${statusLabel}</span></td>
+        <td><button class="btn btn-dark btn-sm" onclick="showToast('Recibo #${p.id.slice(-8).toUpperCase()} a transferir...','success')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </button></td>
+      </tr>`;
+    }).join('');
+  } catch(e) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--grey);">Erro ao carregar histórico.</td></tr>'; console.error(e); }
+});
+
+function exportHistory() {
+  showToast('A gerar PDF do histórico...','info');
+  setTimeout(() => showToast('PDF pronto para download!','success'), 1800);
+}
+function downloadReceipt(id) { showToast('Recibo a transferir...','success'); }
+</script>
+</body>
+</html>

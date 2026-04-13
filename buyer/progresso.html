@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <meta name="theme-color" content="#0c0c0c"/>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Acompanhar Progresso – Nzimbo</title>
+  <link rel="stylesheet" href="buyer-shared.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<header class="topbar">
+  <a href="../home.html" class="topbar-logo"><div class="topbar-logo-icon"></div><span class="topbar-logo-text">Nzimbo</span></a>
+  <div class="topbar-search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder="Pesquisar..."/></div>
+  <div class="topbar-actions">
+    <a href="notificacoes.html" class="topbar-icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><div class="notif-badge"></div></a>
+    <div class="topbar-user"><div class="topbar-avatar">AL</div><div class="topbar-user-info"><span class="topbar-user-name">António Lopes</span><span class="topbar-user-role">Comprador</span></div></div>
+  </div>
+</header>
+<aside class="sidebar" id="sidebar"></aside>
+<main class="main-content">
+
+  <div class="page-header reveal">
+    <div><h1 class="page-title">Progresso</h1><p class="page-subtitle">Acompanha a tua evolução nos cursos</p></div>
+  </div>
+
+  <div class="stats-grid reveal" style="grid-template-columns:repeat(3,1fr);">
+    <div class="stat-card">
+      <div class="stat-card-top"><div class="stat-card-icon gold"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><span class="stat-card-change up">↑ 12%</span></div>
+      <div class="stat-value">68%</div><div class="stat-label">Progresso médio</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-top"><div class="stat-card-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span class="stat-card-change up">Este mês</span></div>
+      <div class="stat-value">14h</div><div class="stat-label">Horas aprendidas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-top"><div class="stat-card-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div></div>
+      <div class="stat-value">2</div><div class="stat-label">Certificados obtidos</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;" class="reveal reveal-delay-1">
+
+    <div class="card">
+      <div class="card-header"><span class="card-title">Progresso por curso</span></div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:20px;">
+
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#1a1000,#3a2500);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(245,166,35,0.8)" stroke-width="1.8" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                <div><div style="font-size:14px;font-weight:600;">Marketing Digital do Zero</div><div style="font-size:11px;color:var(--grey);">Aula 14 de 24</div></div>
+              </div>
+              <span style="font-weight:800;color:var(--gold);font-size:16px;">58%</span>
+            </div>
+            <div class="progress-bar" style="height:8px;"><div class="progress-fill" data-width="58%"></div></div>
+          </div>
+
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#001420,#003050);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(245,166,35,0.8)" stroke-width="1.8" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                <div><div style="font-size:14px;font-weight:600;">Flutter: Apps Mobile do Zero</div><div style="font-size:11px;color:var(--grey);">Aula 8 de 30</div></div>
+              </div>
+              <span style="font-weight:800;color:var(--gold);font-size:16px;">27%</span>
+            </div>
+            <div class="progress-bar" style="height:8px;"><div class="progress-fill" data-width="27%"></div></div>
+          </div>
+
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#150020,#300040);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(245,166,35,0.8)" stroke-width="1.8" stroke-linecap="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/></svg></div>
+                <div><div style="font-size:14px;font-weight:600;">UI/UX Design com Figma</div><div style="font-size:11px;color:var(--grey);">Aula 18 de 20</div></div>
+              </div>
+              <span style="font-weight:800;color:var(--success);font-size:16px;">90%</span>
+            </div>
+            <div class="progress-bar" style="height:8px;"><div class="progress-fill progress-fill green" data-width="90%"></div></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Streak & actividade -->
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div class="card">
+        <div class="card-header"><span class="card-title">Streak de aprendizagem</span></div>
+        <div class="card-body" style="text-align:center;">
+          <div style="font-size:52px;font-weight:900;color:var(--gold);line-height:1;">7</div>
+          <div style="font-size:14px;color:var(--grey);margin-bottom:16px;">dias consecutivos 🔥</div>
+          <div style="display:flex;justify-content:center;gap:6px;margin-bottom:16px;">
+            <div style="width:28px;height:28px;border-radius:6px;background:var(--gold);opacity:0.9;"></div>
+            <div style="width:28px;height:28px;border-radius:6px;background:var(--gold);opacity:0.8;"></div>
+            <div style="width:28px;height:28px;border-radius:6px;background:var(--gold);opacity:0.7;"></div>
+            <div style="width:28px;height:28px;border-radius:6px;background:var(--gold);opacity:0.6;"></div>
+            <div style="width:28px;height:28px;border-radius:6px;background:var(--gold);opacity:0.5;"></div>
+            <div style="width:28px;height:28px;border-radius:6px;background:var(--gold);opacity:0.4;"></div>
+            <div style="width:28px;height:28px;border-radius:6px;background:var(--gold);"></div>
+          </div>
+          <p style="font-size:12px;color:var(--grey);">Mantém a consistência para desbloquear o próximo nível!</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="card-title">Esta semana</span></div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span style="flex:1;color:var(--grey);">Tempo total</span>
+              <strong>4h 20min</strong>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span style="flex:1;color:var(--grey);">Aulas completas</span>
+              <strong>8</strong>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span style="flex:1;color:var(--grey);">Exercícios feitos</span>
+              <strong>12</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase.js"></script>
+<script src="../nzimbo-auth.js"></script>
+<script src="../nzimbo-courses.js"></script>
+<script src="buyer-shared.js"></script>
+
+
+<script>
+window.addEventListener('DOMContentLoaded', async () => {
+  await new Promise(r => setTimeout(r, 200));
+  try {
+    const enrollments = await NzimboCourses.getMyEnrollments();
+    const progressContainer = document.querySelector('.card .card-body > div');
+    if (!progressContainer) return;
+
+    if (!enrollments.length) {
+      progressContainer.innerHTML = '<div style="text-align:center;padding:60px 20px;"><p style="color:var(--grey);margin-bottom:16px;">Ainda não tens cursos. Inscreve-te num curso para começar a acompanhar o teu progresso!</p><a href="../explorar-cursos.html" class="btn btn-gold btn-sm">Explorar cursos</a></div>';
+      return;
+    }
+
+    const bgs = { Marketing:'135deg,#1a1000,#3a2500', Programação:'135deg,#001420,#003050', Design:'135deg,#150020,#300040' };
+    const items = await Promise.all(enrollments.map(async e => {
+      const prog = await NzimboCourses.getProgress(e.course_id);
+      const c = e.courses;
+      if (!c) return '';
+      const pct = prog?.percent || 0;
+      const color = pct >= 80 ? 'var(--success)' : 'var(--gold)';
+      return `<div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(${bgs[c.category]||'135deg,#111,#222'});display:flex;align-items:center;justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(245,166,35,0.8)" stroke-width="1.8" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <div><div style="font-size:14px;font-weight:600;">${c.title}</div></div>
+          </div>
+          <span style="font-weight:800;color:${color};font-size:16px;">${pct}%</span>
+        </div>
+        <div class="progress-bar" style="height:8px;">
+          <div class="progress-fill${pct>=80?' green':''}" style="width:${pct}%"></div>
+        </div>
+      </div>`;
+    }));
+
+    progressContainer.innerHTML = items.filter(Boolean).join('<div style="height:20px;"></div>') ||
+      '<p style="color:var(--grey);text-align:center;">Nenhum progresso ainda.</p>';
+
+    // Atualizar stats
+    const totalPct = enrollments.length > 0
+      ? Math.round(await Promise.all(enrollments.map(async e => {
+          const p = await NzimboCourses.getProgress(e.course_id);
+          return p?.percent || 0;
+        })).then(arr => arr.reduce((s,v)=>s+v,0) / arr.length))
+      : 0;
+    document.querySelectorAll('.stat-value').forEach((el,i) => {
+      if (i===0) el.textContent = totalPct + '%';
+      if (i===2) el.textContent = enrollments.filter(async e => {
+        const p = await NzimboCourses.getProgress(e.course_id);
+        return p?.percent === 100;
+      }).length;
+    });
+  } catch(e) { console.error(e); }
+});
+</script>
+</body>
+</html>

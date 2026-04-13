@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <meta name="theme-color" content="#0c0c0c"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Criar conta – Nzimbo</title>
+  <link rel="stylesheet" href="auth-global.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"/>
+  <meta name="description" content="Cria a tua conta Nzimbo gratuitamente. Comprador ou criador — começa hoje."/>
+  <meta property="og:title"       content="Criar Conta – Nzimbo"/>
+  <meta property="og:description" content="Cria a tua conta Nzimbo gratuitamente. Comprador ou criador — começa hoje."/>
+  <meta property="og:type"        content="website"/>
+  <meta property="og:image"       content="https://nzimbo.ao/og-image.png"/>
+  <meta property="og:url"         content="https://nzimbo.ao/auth/register.html"/>
+  <meta name="twitter:card"       content="summary_large_image"/>
+  <meta name="twitter:title"      content="Criar Conta – Nzimbo"/>
+  <meta name="twitter:description"content="Cria a tua conta Nzimbo gratuitamente. Comprador ou criador — começa hoje."/>
+</head>
+<body>
+<div class="auth-page">
+  <!-- LEFT -->
+  <div class="auth-left">
+    <div class="auth-grid-bg"></div>
+    <a href="../home.html" class="logo-wrap auth-left-logo"><div class="logo-icon"></div><span class="logo-text">Nzimbo</span></a>
+    <div class="auth-left-content">
+      <h2 class="auth-left-title">Junta-te à<br><span class="gold">Nzimbo</span> hoje</h2>
+      <p class="auth-left-sub">Cria a tua conta gratuitamente e começa a aprender ou a vender produtos digitais em minutos.</p>
+      <div class="auth-features">
+        <div class="auth-feature"><div class="auth-feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>Registo gratuito — sem cartão</div>
+        <div class="auth-feature"><div class="auth-feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>Acesso imediato após registo</div>
+        <div class="auth-feature"><div class="auth-feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>Mais de 8.500 criadores e alunos</div>
+      </div>
+    </div>
+    <div class="auth-float-card">
+      <div class="card-label">Novos membros hoje</div>
+      <div class="card-value">+84</div>
+      <div class="card-sub">registados nas últimas 24h</div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="auth-right">
+    <div class="auth-form-wrap">
+      <a href="../home.html" class="logo-wrap" style="margin-bottom:32px;display:none;" id="mobileLogo">
+        <div class="logo-icon"></div><span class="logo-text">Nzimbo</span>
+      </a>
+
+      <!-- OAuth -->
+      <div class="social-btns" style="margin-bottom:16px;display:flex;gap:10px;">
+        <button class="btn-social" onclick="handleSocial('Google')" style="flex:1;padding:12px;border-radius:12px;background:var(--black3);border:1px solid var(--border);color:var(--white);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s;">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Continuar com Google
+        </button>
+        <button class="btn-social" onclick="handleSocial('Facebook')" style="flex:1;padding:12px;border-radius:12px;background:var(--black3);border:1px solid var(--border);color:var(--white);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Facebook
+        </button>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;font-size:12px;color:var(--grey);">
+        <div style="flex:1;height:1px;background:var(--border);"></div>
+        ou cria conta com email
+        <div style="flex:1;height:1px;background:var(--border);"></div>
+      </div>
+      <!-- STEPS -->
+      <div class="step-indicator" id="stepIndicator">
+        <div class="step active" id="step1dot"><div class="step-dot">1</div><span class="step-label">Tipo</span></div>
+        <div class="step-line" id="line1"></div>
+        <div class="step" id="step2dot"><div class="step-dot">2</div><span class="step-label">Dados</span></div>
+        <div class="step-line" id="line2"></div>
+        <div class="step" id="step3dot"><div class="step-dot">3</div><span class="step-label">Pronto</span></div>
+      </div>
+
+      <div id="alertZone"></div>
+
+      <!-- STEP 1 -->
+      <div id="stepOne">
+        <div class="auth-form-header"><h1>Que tipo de conta?</h1><p>Escolhe como vais usar a Nzimbo.</p></div>
+        <div class="type-select">
+          <label class="type-option">
+            <input type="radio" name="accountType" value="buyer" checked/>
+            <div class="type-card">
+              <div class="type-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0c0c0c" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="type-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></div>
+              <h5>Comprador</h5><p>Compra cursos e produtos digitais</p>
+            </div>
+          </label>
+          <label class="type-option">
+            <input type="radio" name="accountType" value="creator"/>
+            <div class="type-card">
+              <div class="type-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0c0c0c" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="type-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+              <h5>Criador</h5><p>Vende cursos e produtos digitais</p>
+            </div>
+          </label>
+        </div>
+        <div id="creatorWarning" style="display:none;" class="auth-alert info">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>A conta de criador precisa de aprovação em até 24h antes de poderes publicar conteúdo.</span>
+        </div>
+        <button class="btn-auth btn-gold" id="nextStep1">Continuar<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+
+      <!-- STEP 2 -->
+      <div id="stepTwo" style="display:none;">
+        <div class="auth-form-header"><h1>Os teus dados</h1><p>Preenche as informações da tua conta.</p></div>
+        <form id="registerForm" novalidate>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="form-group">
+              <label class="form-label">Primeiro nome</label>
+              <div class="form-field">
+                <span class="form-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                <input class="form-input" type="text" id="firstName" placeholder="António" autocomplete="given-name"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Apelido</label>
+              <div class="form-field">
+                <span class="form-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                <input class="form-input" type="text" id="lastName" placeholder="Lopes" autocomplete="family-name"/>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <div class="form-field">
+              <span class="form-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+              <input class="form-input" type="email" id="regEmail" placeholder="o.teu@email.com" autocomplete="email"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telefone (opcional)</label>
+            <div class="phone-wrap">
+              <button type="button" class="phone-flag">🇦🇴 +244</button>
+              <div class="form-field" style="flex:1;">
+                <span class="form-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07"/></svg></span>
+                <input class="form-input" type="tel" id="phone" placeholder="9XX XXX XXX"/>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Senha</label>
+            <div class="form-field">
+              <span class="form-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>
+              <input class="form-input" type="password" id="regPassword" placeholder="Mínimo 8 caracteres" autocomplete="new-password"/>
+              <button type="button" class="form-toggle" aria-label="Mostrar senha"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            </div>
+            <div class="pwd-strength" id="pwdStrength" style="display:none;">
+              <div class="pwd-bars"><div class="pwd-bar" id="bar1"></div><div class="pwd-bar" id="bar2"></div><div class="pwd-bar" id="bar3"></div><div class="pwd-bar" id="bar4"></div><div class="pwd-bar" id="bar5"></div></div>
+              <span class="pwd-label" id="pwdLabel"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirmar senha</label>
+            <div class="form-field">
+              <span class="form-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>
+              <input class="form-input" type="password" id="confirmPassword" placeholder="Repete a senha" autocomplete="new-password"/>
+              <button type="button" class="form-toggle" aria-label="Mostrar senha"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:24px;">
+            <label class="checkbox-wrap">
+              <input type="checkbox" id="terms"/>
+              <span class="checkbox-label">Concordo com os <a href="../termos.html">Termos de Uso</a> e a <a href="../privacidade.html">Política de Privacidade</a></span>
+            </label>
+          </div>
+          <button type="submit" class="btn-auth btn-gold" id="submitRegister">Criar conta <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </form>
+        <div style="margin-top:12px;">
+          <button class="btn-auth btn-outline" onclick="goToStep(1)" style="font-size:13px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Voltar</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div id="stepThree" style="display:none;">
+        <div class="success-state">
+          <div class="success-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h2>Conta criada! 🎉</h2>
+          <p>Bem-vindo à Nzimbo, <strong id="welcomeName" style="color:#fff;"></strong>!<br>A tua conta está activa e pronta a usar.</p>
+          <div style="margin-top:28px;display:flex;flex-direction:column;gap:10px;">
+            <a id="dashboardLink" href="../buyer/dashboard.html" class="btn-auth btn-gold" style="display:flex;text-decoration:none;">
+              Ir para o Dashboard
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <p style="font-size:12px;color:var(--grey);margin-top:4px;text-align:center;">
+              Não recebeste o email? 
+              <a href="login.html" style="color:var(--gold);">Entra com a tua senha</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="auth-link" id="loginLink">Já tens conta? <a href="login.html">Entrar</a></p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../supabase.js"></script>
+  <script src="../nzimbo-auth.js"></script>
+<script src="auth-global.js"></script>
+
+
+<script>
+'use strict';
+window.addEventListener('DOMContentLoaded', async () => {
+  if (window.innerWidth <= 900) document.getElementById('mobileLogo').style.display = 'flex';
+  try { await waitSB(); } catch(e) { console.warn('Supabase:', e.message); }
+  const session = await NzimboAuth.getSession();
+  if (session) window.location.href = '../buyer/dashboard.html';
+});
+
+let selectedType = 'buyer';
+let currentStep  = 1;
+
+document.querySelectorAll('input[name="accountType"]').forEach(r => {
+  r.addEventListener('change', () => {
+    selectedType = r.value;
+    document.getElementById('creatorWarning').style.display = selectedType === 'creator' ? 'flex' : 'none';
+  });
+});
+
+document.getElementById('nextStep1').addEventListener('click', () => goToStep(2));
+
+function goToStep(n) {
+  currentStep = n;
+  document.getElementById('stepOne').style.display   = n===1 ? 'block' : 'none';
+  document.getElementById('stepTwo').style.display   = n===2 ? 'block' : 'none';
+  document.getElementById('stepThree').style.display = n===3 ? 'block' : 'none';
+  document.getElementById('loginLink').style.display = n===3 ? 'none' : 'block';
+  ['step1dot','step2dot','step3dot'].forEach((id,i) => {
+    const el = document.getElementById(id);
+    el.className = 'step' + (i+1<n?' done':i+1===n?' active':'');
+    if (i+1<n) el.querySelector('.step-dot').innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    else el.querySelector('.step-dot').textContent = i+1;
+  });
+  document.getElementById('line1').className='step-line'+(n>=2?' done':'');
+  document.getElementById('line2').className='step-line'+(n>=3?' done':'');
+}
+
+const pwdInput = document.getElementById('regPassword');
+pwdInput.addEventListener('input', () => {
+  const s = document.getElementById('pwdStrength');
+  if (pwdInput.value) { s.style.display='block'; renderStrength([1,2,3,4,5].map(i=>document.getElementById('bar'+i)), document.getElementById('pwdLabel'), pwdInput.value); }
+  else s.style.display='none';
+});
+
+document.getElementById('registerForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = {
+    firstName: document.getElementById('firstName'),
+    lastName:  document.getElementById('lastName'),
+    email:     document.getElementById('regEmail'),
+    pass:      document.getElementById('regPassword'),
+    confirm:   document.getElementById('confirmPassword'),
+  };
+  let valid = true;
+  if (!f.firstName.value.trim() || f.firstName.value.trim().length<2) { setFieldError(f.firstName,'Mínimo 2 caracteres'); valid=false; } else setFieldOk(f.firstName);
+  if (!f.lastName.value.trim() || f.lastName.value.trim().length<2)   { setFieldError(f.lastName,'Mínimo 2 caracteres'); valid=false; } else setFieldOk(f.lastName);
+  if (!Validate.email(f.email.value.trim())) { setFieldError(f.email,'Email inválido'); valid=false; } else setFieldOk(f.email);
+  if (f.pass.value.length < 8) { setFieldError(f.pass,'Mínimo 8 caracteres'); valid=false; } else setFieldOk(f.pass);
+  if (f.confirm.value !== f.pass.value) { setFieldError(f.confirm,'As senhas não coincidem'); valid=false; } else setFieldOk(f.confirm);
+  if (!document.getElementById('terms').checked) { showAlert(document.getElementById('alertZone'),'error','Deves aceitar os termos.'); valid=false; }
+  if (!valid) return;
+
+  const btn = document.getElementById('submitRegister');
+  setButtonLoading(btn, true);
+  try {
+    await waitSB();
+    await NzimboAuth.register({
+      firstName: f.firstName.value.trim(),
+      lastName:  f.lastName.value.trim(),
+      email:     f.email.value.trim(),
+      phone:     document.getElementById('phone').value.trim(),
+      password:  f.pass.value,
+      type:      selectedType
+    });
+    document.getElementById('welcomeName').textContent = f.firstName.value.trim();
+    if (selectedType === 'creator') document.getElementById('dashboardLink').href = '../seller/dashboard.html';
+    goToStep(3);
+  } catch(err) {
+    setButtonLoading(btn, false);
+    showAlert(document.getElementById('alertZone'), 'error', err.message);
+  }
+});
+</script>
+
+</body>
+</html>

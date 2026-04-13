@@ -1,0 +1,40 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[redirects]]
+  from = "/dashboard"
+  to = "/buyer/dashboard.html"
+  status = 301
+
+[[redirects]]
+  from = "/login"
+  to = "/auth/login.html"
+  status = 301
+
+[[redirects]]
+  from = "/register"
+  to = "/auth/register.html"
+  status = 301
+
+[[redirects]]
+  from = "/criar"
+  to = "/seller/dashboard.html"
+  status = 301

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <meta name="theme-color" content="#0c0c0c"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Nzimbo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#F5A623;--gold-d:#D4891A;--black:#0c0c0c;}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html,body{width:100%;height:100%;overflow:hidden;background:var(--black);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+    body{display:flex;align-items:center;justify-content:center;flex-direction:column;}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(245,166,35,0.07) 0%,transparent 70%);pointer-events:none;}
+
+    /* corners */
+    .c{position:fixed;width:36px;height:36px;z-index:5;border-color:rgba(245,166,35,0.15);border-style:solid;opacity:0;animation:cin .8s .3s forwards;}
+    .c-tl{top:24px;left:24px;border-width:1.5px 0 0 1.5px;}
+    .c-tr{top:24px;right:24px;border-width:1.5px 1.5px 0 0;}
+    .c-bl{bottom:24px;left:24px;border-width:0 0 1.5px 1.5px;}
+    .c-br{bottom:24px;right:24px;border-width:0 1.5px 1.5px 0;}
+    @keyframes cin{to{opacity:1;}}
+
+    /* logo */
+    .logo-wrap{display:flex;flex-direction:column;align-items:center;gap:20px;opacity:0;animation:fadeUp .8s .2s cubic-bezier(0.16,1,0.3,1) forwards;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+    .logo-icon{width:72px;height:72px;border-radius:18px;background:#fcfcfc;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(245,166,35,0.2);}
+    .logo-icon svg{width:50px;height:50px;}
+    .logo-name{font-size:32px;font-weight:900;letter-spacing:-0.5px;color:#fff;}
+
+    /* progress */
+    .progress-wrap{width:200px;opacity:0;animation:fadeUp .6s .9s forwards;}
+    .progress-bar{height:2px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;margin-bottom:8px;}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold));border-radius:2px;width:0%;box-shadow:0 0 8px rgba(245,166,35,0.5);}
+    .progress-meta{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;}
+
+    body.out{animation:out .5s ease forwards;}
+    @keyframes out{to{opacity:0;}}
+  </style>
+</head>
+<body>
+  <span class="c c-tl"></span><span class="c c-tr"></span>
+  <span class="c c-bl"></span><span class="c c-br"></span>
+
+  <div class="logo-wrap">
+    <div class="logo-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.13 62.13">
+        <rect fill="#fcfcfc" width="62.13" height="62.13" rx="17.09"/>
+        <polygon fill="none" stroke="#0c0c0c" stroke-miterlimit="10" stroke-width="2"
+          points="19.62 47.33 23.44 47.33 23.69 21.92 39.45 42.99 39.45 47.33 44.28 47.33
+          44.28 37.93 47.59 37.93 47.59 33.1 44.03 33.06 44.03 28.77 47.84 28.77 47.84 23.94
+          44.03 23.94 44.03 14.28 39.2 14.28 39.2 23.94 39.2 35.13 31.06 23.94 23.94 14.28
+          18.86 14.28 18.86 23.94 14.28 23.94 14.28 29.03 19.11 29.03 19.11 33.35 14.28 33.35
+          14.28 38.18 19.11 38.18 19.11 46.83 19.11 47.84 19.62 47.33"/>
+      </svg>
+    </div>
+    <div class="logo-name">Nzimbo</div>
+  </div>
+
+  <div class="progress-wrap" style="margin-top:48px;">
+    <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
+    <div class="progress-meta"><span>A carregar</span><span id="pct">0%</span></div>
+  </div>
+
+  <script>
+  (function(){
+    // Se já visitou → vai direto para home
+    if (sessionStorage.getItem('nz_visited')) {
+      window.location.href = 'home.html'; return;
+    }
+    const fill = document.getElementById('fill');
+    const pct  = document.getElementById('pct');
+    let start  = null;
+    const DUR  = 2200;
+    function run(ts){
+      if (!start) start = ts;
+      const p = Math.min((ts-start)/DUR, 1);
+      const e = p < .5 ? 2*p*p : 1-Math.pow(-2*p+2,2)/2;
+      const v = Math.floor(e*100);
+      fill.style.width = v + '%';
+      pct.textContent  = v + '%';
+      if (p < 1) requestAnimationFrame(run);
+      else {
+        setTimeout(() => {
+          sessionStorage.setItem('nz_visited','1');
+          document.body.classList.add('out');
+          setTimeout(() => window.location.href='onboarding/onboarding.html', 500);
+        }, 300);
+      }
+    }
+    setTimeout(() => requestAnimationFrame(run), 800);
+  })();
+  </script>
+</body>
+</html>

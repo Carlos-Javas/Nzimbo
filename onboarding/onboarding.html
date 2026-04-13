@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <meta name="theme-color" content="#0c0c0c"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Nzimbo – Introdução</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#F5A623;--gold-d:#D4891A;--gold-l:#FFB940;--black:#0c0c0c;--b2:#111;--b3:#181818;--b4:#202020;--white:#fff;--grey:#888;--border:rgba(255,255,255,0.08);}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html,body{width:100%;height:100%;overflow:hidden;background:var(--black);font-family:'DM Sans',sans-serif;color:var(--white);-webkit-font-smoothing:antialiased;}
+
+    /* TOPBAR */
+    .topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;}
+    .logo{display:flex;align-items:center;gap:9px;text-decoration:none;}
+    .logo-icon{width:34px;height:34px;border-radius:9px;background:#fcfcfc;display:flex;align-items:center;justify-content:center;}
+    .logo-icon svg{width:22px;height:22px;}
+    .logo-text{font-size:18px;font-weight:800;letter-spacing:-0.3px;color:#fff;}
+    .btn-skip{background:none;border:none;font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,255,255,0.4);cursor:pointer;padding:8px 14px;border-radius:8px;transition:.2s;}
+    .btn-skip:hover{color:var(--gold);}
+
+    /* SLIDES */
+    .slides-wrap{position:relative;z-index:2;width:100%;height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 24px 160px;}
+    .slide{position:absolute;width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:0;opacity:0;pointer-events:none;transform:translateX(40px);transition:opacity .4s ease,transform .4s cubic-bezier(0.16,1,0.3,1);}
+    .slide.active{opacity:1;pointer-events:auto;transform:translateX(0);}
+    .slide.out{opacity:0;transform:translateX(-40px);}
+
+    /* VISUAL */
+    .visual{width:200px;height:200px;position:relative;margin-bottom:36px;}
+    .visual-ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(245,166,35,0.12);animation:pulse 3s ease-in-out infinite;}
+    .visual-ring-2{position:absolute;inset:20px;border-radius:50%;border:1px solid rgba(245,166,35,0.08);animation:pulse 3s 0.5s ease-in-out infinite;}
+    @keyframes pulse{0%,100%{transform:scale(1);opacity:.7;}50%{transform:scale(1.06);opacity:1;}}
+    .visual-center{position:absolute;inset:30px;border-radius:50%;background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.15);display:flex;align-items:center;justify-content:center;animation:float 4s ease-in-out infinite;}
+    @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+    .visual-icon{color:var(--gold);}
+
+    /* CHIPS */
+    .chip{position:absolute;display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:50px;background:rgba(17,17,17,0.95);border:1px solid rgba(245,166,35,0.2);font-size:12px;font-weight:500;backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(0,0,0,0.4);white-space:nowrap;animation:chipIn .5s ease both;}
+    .chip-top{top:-4px;right:-20px;animation-delay:.4s;}
+    .chip-bottom{bottom:-4px;left:-20px;animation-delay:.55s;}
+    @keyframes chipIn{from{opacity:0;transform:scale(.88);}to{opacity:1;transform:scale(1);}}
+    .chip-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+    .chip-dot.green{background:#22c55e;}
+
+    /* COPY */
+    .slide-num{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,166,35,0.6);font-weight:600;margin-bottom:14px;}
+    .slide-title{font-size:clamp(26px,5vw,34px);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:14px;}
+    .slide-title .gold{color:var(--gold);}
+    .slide-desc{font-size:15px;color:rgba(255,255,255,0.5);line-height:1.75;max-width:340px;}
+
+    /* BOTTOM */
+    .bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;padding:20px 24px 36px;display:flex;flex-direction:column;align-items:center;gap:20px;background:linear-gradient(to top,rgba(12,12,12,1) 55%,transparent);}
+    .dots{display:flex;gap:7px;align-items:center;}
+    .dot{width:7px;height:7px;border-radius:50%;background:rgba(245,166,35,0.2);border:none;cursor:pointer;padding:0;transition:all .3s cubic-bezier(0.16,1,0.3,1);}
+    .dot.active{width:24px;border-radius:4px;background:var(--gold);}
+    .btn-area{width:100%;max-width:400px;display:flex;flex-direction:column;gap:10px;}
+    .btn-next{width:100%;padding:15px;display:flex;align-items:center;justify-content:center;gap:9px;border:none;border-radius:12px;cursor:pointer;background:var(--gold);color:#0c0c0c;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;transition:transform .2s,box-shadow .2s;}
+    .btn-next:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,0.35);}
+    .btn-skip-bottom{width:100%;padding:14px;border:1px solid rgba(255,255,255,0.1);border-radius:12px;cursor:pointer;background:transparent;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;transition:.2s;}
+    .btn-skip-bottom:hover{border-color:rgba(255,255,255,0.25);color:var(--white);}
+
+    body.out{animation:pageOut .4s ease forwards;}
+    @keyframes pageOut{to{opacity:0;}}
+
+    /* Glow BG */
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 30%,rgba(245,166,35,0.05) 0%,transparent 65%);pointer-events:none;}
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a href="../home.html" class="logo">
+      <div class="logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.13 62.13">
+          <rect fill="#fcfcfc" width="62.13" height="62.13" rx="17.09"/>
+          <polygon fill="none" stroke="#0c0c0c" stroke-miterlimit="10" stroke-width="2"
+            points="19.62 47.33 23.44 47.33 23.69 21.92 39.45 42.99 39.45 47.33 44.28 47.33
+            44.28 37.93 47.59 37.93 47.59 33.1 44.03 33.06 44.03 28.77 47.84 28.77 47.84 23.94
+            44.03 23.94 44.03 14.28 39.2 14.28 39.2 23.94 39.2 35.13 31.06 23.94 23.94 14.28
+            18.86 14.28 18.86 23.94 14.28 23.94 14.28 29.03 19.11 29.03 19.11 33.35 14.28 33.35
+            14.28 38.18 19.11 38.18 19.11 46.83 19.11 47.84 19.62 47.33"/>
+        </svg>
+      </div>
+      <span class="logo-text">Nzimbo</span>
+    </a>
+    <button class="btn-skip" onclick="goHome()">Saltar</button>
+  </header>
+
+  <!-- SLIDES -->
+  <div class="slides-wrap">
+
+    <!-- SLIDE 1 -->
+    <div class="slide active" data-i="0">
+      <div class="visual">
+        <div class="visual-ring"></div><div class="visual-ring-2"></div>
+        <div class="visual-center">
+          <svg class="visual-icon" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+          </svg>
+        </div>
+        <div class="chip chip-top"><div class="chip-dot"></div>850+ cursos</div>
+        <div class="chip chip-bottom"><div class="chip-dot green"></div>Acesso vitalício</div>
+      </div>
+      <p class="slide-num">01 / 03</p>
+      <h2 class="slide-title">Aprende com os<br>melhores <span class="gold">criadores</span></h2>
+      <p class="slide-desc">Acede a cursos e produtos digitais de criadores angolanos e de todo o mundo, no teu ritmo.</p>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide" data-i="1">
+      <div class="visual">
+        <div class="visual-ring"></div><div class="visual-ring-2"></div>
+        <div class="visual-center">
+          <svg class="visual-icon" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+          </svg>
+        </div>
+        <div class="chip chip-top"><div class="chip-dot"></div>Ganhos em Kz</div>
+        <div class="chip chip-bottom"><div class="chip-dot green"></div>Comissão até 90%</div>
+      </div>
+      <p class="slide-num">02 / 03</p>
+      <h2 class="slide-title">Transforma<br>conhecimento em <span class="gold">lucro</span></h2>
+      <p class="slide-desc">Publica os teus cursos, define o teu preço e começa a gerar renda passiva hoje.</p>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide" data-i="2">
+      <div class="visual">
+        <div class="visual-ring"></div><div class="visual-ring-2"></div>
+        <div class="visual-center">
+          <svg class="visual-icon" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+          </svg>
+        </div>
+        <div class="chip chip-top"><div class="chip-dot"></div>Multicaixa Express</div>
+        <div class="chip chip-bottom"><div class="chip-dot green"></div>100% seguro</div>
+      </div>
+      <p class="slide-num">03 / 03</p>
+      <h2 class="slide-title">Paga com<br><span class="gold">Multicaixa</span> Express</h2>
+      <p class="slide-desc">Multicaixa Express, transferência bancária, cartão ou PayPal. Feito para Angola.</p>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <footer class="bottom">
+    <div class="dots">
+      <button class="dot active" data-i="0"></button>
+      <button class="dot" data-i="1"></button>
+      <button class="dot" data-i="2"></button>
+    </div>
+    <div class="btn-area">
+      <button class="btn-next" id="btnNext">
+        Próximo
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <button class="btn-skip-bottom" id="btnSkipBottom" onclick="goHome()">Saltar introdução</button>
+    </div>
+  </footer>
+
+  <script>
+  'use strict';
+  let cur = 0; const TOTAL = 3;
+  const slides = [...document.querySelectorAll('.slide')];
+  const dots   = [...document.querySelectorAll('.dot')];
+  const btnNext = document.getElementById('btnNext');
+
+  function goTo(i) {
+    if (i < 0 || i >= TOTAL) return;
+    slides[cur].classList.remove('active'); slides[cur].classList.add('out');
+    const prev = cur; cur = i;
+    setTimeout(() => slides[prev].classList.remove('out'), 420);
+    slides[cur].classList.add('active');
+    dots.forEach((d,j) => d.classList.toggle('active', j === cur));
+    if (cur === TOTAL-1) {
+      btnNext.innerHTML = `Criar conta grátis <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+      btnNext.onclick = () => go('../auth/register.html');
+      document.getElementById('btnSkipBottom').textContent = 'Já tenho conta';
+      document.getElementById('btnSkipBottom').onclick = () => go('../auth/login.html');
+    } else {
+      btnNext.innerHTML = `Próximo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+      btnNext.onclick = () => goTo(cur+1);
+      document.getElementById('btnSkipBottom').textContent = 'Saltar introdução';
+      document.getElementById('btnSkipBottom').onclick = goHome;
+    }
+  }
+
+  btnNext.addEventListener('click', () => goTo(cur+1));
+  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.i)));
+
+  // Swipe
+  let tx = 0;
+  document.addEventListener('touchstart', e => tx = e.touches[0].clientX, {passive:true});
+  document.addEventListener('touchend',   e => { const d = e.changedTouches[0].clientX - tx; if (Math.abs(d)>44) d<0?goTo(cur+1):goTo(cur-1); }, {passive:true});
+  document.addEventListener('keydown', e => { if(e.key==='ArrowRight')goTo(cur+1); if(e.key==='ArrowLeft')goTo(cur-1); });
+
+  function goHome() { go('../home.html'); }
+  function go(url) { document.body.classList.add('out'); setTimeout(() => window.location.href=url, 420); }
+  </script>
+</body>
+</html>

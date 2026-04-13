@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 62'%3E%3Crect fill='%230c0c0c' width='62' height='62' rx='14'/%3E%3Crect fill='%23F5A623' x='8' y='8' width='46' height='46' rx='10'/%3E%3Cpolygon fill='none' stroke='%230c0c0c' stroke-width='2.2' stroke-miterlimit='10' points='17 45 21 45 21 22 35 41 35 45 40 45 40 36 43 36 43 31 40 31 40 27 43 27 43 22 40 22 40 14 35 14 35 22 35 33 28 22 22 14 17 14 17 22 13 22 13 27 17 27 17 31 13 31 13 36 17 36 17 44 17 45'/%3E%3C/svg%3E"/>
+  <meta name="theme-color" content="#0c0c0c"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Dashboard – Nzimbo</title>
+  <link rel="stylesheet" href="buyer-shared.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="../home.html" class="topbar-logo">
+    <div class="topbar-logo-icon"></div>
+    <span class="topbar-logo-text">Nzimbo</span>
+  </a>
+  <div class="topbar-search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="Pesquisar cursos, produtos..."/>
+  </div>
+  <div class="topbar-actions">
+    <a href="notificacoes.html" class="topbar-icon-btn" data-tooltip="Notificações">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+      <div class="notif-badge"></div>
+    </a>
+    <div class="topbar-user">
+      <div class="topbar-avatar">AL</div>
+      <div class="topbar-user-info">
+        <span class="topbar-user-name">António Lopes</span>
+        <span class="topbar-user-role">Comprador</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar"></aside>
+
+<!-- MAIN -->
+<main class="main-content">
+
+  <!-- Welcome banner -->
+  <div class="reveal" style="background:linear-gradient(135deg,rgba(245,166,35,0.1),rgba(245,166,35,0.03));border:1px solid rgba(245,166,35,0.18);border-radius:var(--radius-lg);padding:24px 28px;display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;gap:16px;flex-wrap:wrap;">
+    <div>
+      <h2 style="font-size:22px;font-weight:800;margin-bottom:4px;">Bom dia, António 👋</h2>
+      <p style="color:var(--grey);font-size:14px;">Tens 3 cursos em andamento. Continua o teu progresso!</p>
+    </div>
+    <a href="meus-cursos.html" class="btn btn-gold">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      Continuar a aprender
+    </a>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid reveal">
+    <div class="stat-card">
+      <div class="stat-card-top">
+        <div class="stat-card-icon gold"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+        <span class="stat-card-change up">+2 este mês</span>
+      </div>
+      <div class="stat-value" data-count="7">0</div>
+      <div class="stat-label">Cursos comprados</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-top">
+        <div class="stat-card-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <span class="stat-card-change up">↑ 15% esta semana</span>
+      </div>
+      <div class="stat-value">68%</div>
+      <div class="stat-label">Progresso médio</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-top">
+        <div class="stat-card-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+        <span class="stat-card-change up">+1 novo</span>
+      </div>
+      <div class="stat-value" data-count="4">0</div>
+      <div class="stat-label">Downloads disponíveis</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-top">
+        <div class="stat-card-icon gold"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <span class="stat-card-change up">+3 esta semana</span>
+      </div>
+      <div class="stat-value" data-count="12">0</div>
+      <div class="stat-label">Itens na wishlist</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 360px;gap:24px;" class="reveal reveal-delay-1">
+
+    <!-- CONTINUAR A APRENDER -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Continuar a aprender</span>
+        <a href="meus-cursos.html" class="btn btn-ghost">Ver todos →</a>
+      </div>
+      <div class="card-body">
+
+        <!-- Course item -->
+        <div class="course-list-item">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#1a1000,#3a2500);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(245,166,35,0.7)" stroke-width="1.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="course-list-info">
+            <div class="course-list-title">Marketing Digital do Zero ao Avançado</div>
+            <div class="course-list-meta">
+              <span>Carlos Mbemba</span>
+              <span>•</span>
+              <span>Aula 14 de 24</span>
+            </div>
+          </div>
+          <div class="course-list-progress">
+            <div class="course-progress-text"><span>58%</span><span>concluído</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="58%"></div></div>
+          </div>
+          <div class="course-list-action">
+            <a href="#" class="btn btn-gold btn-sm">Continuar</a>
+          </div>
+        </div>
+
+        <div class="course-list-item">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#001420,#003050);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(245,166,35,0.7)" stroke-width="1.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="course-list-info">
+            <div class="course-list-title">Flutter: Cria Apps Mobile do Zero</div>
+            <div class="course-list-meta">
+              <span>Ana Luísa Dev</span>
+              <span>•</span>
+              <span>Aula 8 de 30</span>
+            </div>
+          </div>
+          <div class="course-list-progress">
+            <div class="course-progress-text"><span>27%</span><span>concluído</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="27%"></div></div>
+          </div>
+          <div class="course-list-action">
+            <a href="#" class="btn btn-gold btn-sm">Continuar</a>
+          </div>
+        </div>
+
+        <div class="course-list-item">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#150020,#300040);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(245,166,35,0.7)" stroke-width="1.5" stroke-linecap="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+          </div>
+          <div class="course-list-info">
+            <div class="course-list-title">UI/UX Design com Figma</div>
+            <div class="course-list-meta">
+              <span>Sofia Neto</span>
+              <span>•</span>
+              <span>Aula 18 de 20</span>
+            </div>
+          </div>
+          <div class="course-list-progress">
+            <div class="course-progress-text"><span>90%</span><span>concluído</span></div>
+            <div class="progress-bar"><div class="progress-fill progress-fill green" data-width="90%"></div></div>
+          </div>
+          <div class="course-list-action">
+            <a href="#" class="btn btn-gold btn-sm">Continuar</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ATIVIDADE RECENTE -->
+    <div style="display:flex;flex-direction:column;gap:20px;">
+
+      <!-- Notificações recentes -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Notificações</span>
+          <a href="notificacoes.html" class="btn btn-ghost">Ver todas →</a>
+        </div>
+        <div class="card-body" style="padding:12px 22px;">
+          <div class="notif-item unread" style="padding-left:16px;">
+            <div class="notif-icon" style="background:rgba(245,166,35,0.1);color:var(--gold);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <div class="notif-body">
+              <div class="notif-title">Nova aula disponível</div>
+              <div class="notif-desc">Flutter: Módulo 4 foi publicado</div>
+              <div class="notif-time">há 30 minutos</div>
+            </div>
+          </div>
+          <div class="notif-item" style="padding-left:16px;">
+            <div class="notif-icon" style="background:rgba(34,197,94,0.1);color:var(--success);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="notif-body">
+              <div class="notif-title">Compra confirmada</div>
+              <div class="notif-desc">Design com Figma — 6.800 Kz</div>
+              <div class="notif-time">há 2 dias</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certificados -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Certificados</span>
+        </div>
+        <div class="card-body" style="padding:20px 22px;">
+          <div style="display:flex;align-items:center;gap:14px;padding:12px;background:rgba(245,166,35,0.05);border:1px solid rgba(245,166,35,0.15);border-radius:10px;margin-bottom:10px;">
+            <div style="width:40px;height:40px;border-radius:10px;background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.2);display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:600;">UI/UX com Figma</div>
+              <div style="font-size:11px;color:var(--grey);">Concluído — Nov 2024</div>
+            </div>
+            <a href="#" class="btn btn-sm btn-outline" style="margin-left:auto;">Download</a>
+          </div>
+          <p style="font-size:13px;color:var(--grey);text-align:center;">2 cursos próximos da conclusão</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /grid -->
+
+  <!-- PRODUTOS RECOMENDADOS -->
+  <div class="card reveal reveal-delay-2" style="margin-top:24px;">
+    <div class="card-header">
+      <span class="card-title">Recomendados para ti</span>
+      <a href="../explorar-cursos.html" class="btn btn-ghost">Explorar →</a>
+    </div>
+    <div class="card-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <a href="../detalhe-curso.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;background:var(--b4);border:1px solid var(--border);transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(245,166,35,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)'">
+          <div style="width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,#0a1a0a,#1a3a1a);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(245,166,35,0.7)" stroke-width="1.8" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:2px;">Negócios Online em Angola</div>
+            <div style="font-size:12px;color:var(--grey);">9.500 Kz</div>
+          </div>
+        </a>
+        <a href="../detalhe-curso.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;background:var(--b4);border:1px solid var(--border);transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(245,166,35,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)'">
+          <div style="width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,#001820,#003540);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(245,166,35,0.7)" stroke-width="1.8" stroke-linecap="round"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:2px;">Gestão de Redes Sociais</div>
+            <div style="font-size:12px;color:var(--grey);">4.200 Kz</div>
+          </div>
+        </a>
+        <a href="../detalhe-curso.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;background:var(--b4);border:1px solid var(--border);transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(245,166,35,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)'">
+          <div style="width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,#1a0020,#380050);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(245,166,35,0.7)" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:2px;">Excel Avançado para Negócios</div>
+            <div style="font-size:12px;color:var(--grey);">3.500 Kz</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase.js"></script>
+<script src="../nzimbo-auth.js"></script>
+<script src="../nzimbo-courses.js"></script>
+<script src="buyer-shared.js"></script>
+
+
+<script>
+window.addEventListener('DOMContentLoaded', async () => {
+  // Esperar pelo guard do buyer-shared
+  await new Promise(r => setTimeout(r, 100));
+  const profile = window._profile;
+  if (!profile) return;
+
+  // Saudação
+  const hour = new Date().getHours();
+  const saud = hour < 12 ? 'Bom dia' : hour < 18 ? 'Boa tarde' : 'Boa noite';
+  const greet = document.querySelector('h2');
+  if (greet) greet.innerHTML = `${saud}, ${profile.first_name} 👋`;
+
+  const subEl = document.querySelector('h2 + p, h2 ~ p');
+
+  // Stats reais
+  try {
+    const enrollments = await NzimboCourses.getMyEnrollments();
+    document.querySelectorAll('[data-count="7"]').forEach(el => {
+      el.dataset.count = enrollments.length;
+      el.textContent = enrollments.length;
+    });
+
+    // Se não tem cursos, mostrar mensagem na secção
+    if (enrollments.length === 0 && subEl) {
+      subEl.textContent = 'Ainda não tens cursos. Explora o catálogo!';
+    } else if (subEl) {
+      subEl.textContent = `Tens ${enrollments.length} curso${enrollments.length!==1?'s':''} inscritos. Continua o teu progresso!`;
+    }
+
+    // Cursos recentes (lista)
+    const courseListWrap = document.querySelector('.card-body .course-list-item')?.closest('.card-body');
+    if (courseListWrap && enrollments.length > 0) {
+      const recent = enrollments.slice(0,3);
+      const items = await Promise.all(recent.map(async e => {
+        const prog = await NzimboCourses.getProgress(e.course_id);
+        const c = e.courses;
+        if (!c) return '';
+        const pct = prog?.percent || 0;
+        return `<div class="course-list-item">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#1a1000,#3a2500);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(245,166,35,0.7)" stroke-width="1.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="course-list-info">
+            <div class="course-list-title">${c.title}</div>
+            <div class="course-list-meta"><span>${pct}% concluído</span></div>
+          </div>
+          <div class="course-list-progress">
+            <div class="course-progress-text"><span>${pct}%</span><span>concluído</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+          </div>
+          <div class="course-list-action">
+            <a href="../buyer/player.html?id=${e.course_id}" class="btn btn-gold btn-sm">Continuar</a>
+          </div>
+        </div>`;
+      }));
+      courseListWrap.innerHTML = items.filter(Boolean).join('') || '<p style="color:var(--grey);text-align:center;padding:20px;">Nenhum curso em andamento.</p>';
+    } else if (courseListWrap && enrollments.length === 0) {
+      courseListWrap.innerHTML = '<div style="text-align:center;padding:40px 20px;"><p style="color:var(--grey);margin-bottom:16px;">Ainda não tens cursos inscritos.</p><a href="../explorar-cursos.html" class="btn btn-gold btn-sm">Explorar cursos</a></div>';
+    }
+  } catch(e) { console.error(e); }
+});
+</script>
+</body>
+</html>
