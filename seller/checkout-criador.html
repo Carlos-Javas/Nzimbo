@@ -599,8 +599,8 @@
           </div>
           <div style="text-align:right;">
             <div style="font-weight:700;font-size:16px;">RECIBO DE CRIADOR</div>
-            <div style="font-size:13px;color:var(--gold);">#WD-20250415-4821</div>
-            <div style="font-size:12px;color:var(--grey);">15 de Abril, 2025</div>
+            <div style="font-size:13px;color:var(--gold);" id="receipt-ref">#WD-——</div>
+            <div style="font-size:12px;color:var(--grey);" id="receipt-date">—</div>
           </div>
         </div>
       </div>
@@ -609,9 +609,9 @@
         <div class="form-row" style="margin-bottom:24px;">
           <div>
             <div style="font-size:11px;color:var(--grey);font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;">Criador</div>
-            <div style="font-weight:700;font-size:15px;">Manuel Kuenda</div>
-            <div style="font-size:13px;color:var(--grey);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="472a262932222b07293d2e2a2528692628">[email&#160;protected]</a></div>
-            <div style="font-size:13px;color:var(--grey);">ID: #CRT-00482</div>
+            <div style="font-weight:700;font-size:15px;" id="receipt-name">—</div>
+            <div style="font-size:13px;color:var(--grey);" id="receipt-email">—</div>
+            <div style="font-size:13px;color:var(--grey);" id="receipt-id">—</div>
           </div>
           <div>
             <div style="font-size:11px;color:var(--grey);font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;">Destino</div>
@@ -627,26 +627,26 @@
           </div>
           <div class="receipt-line" style="padding:14px 16px;">
             <div>
-              <div style="font-size:14px;font-weight:600;">Levantamento de ganhos – Abril 2025</div>
-              <div style="font-size:12px;color:var(--grey);">Período: 1 – 15 Abr 2025 · 6 vendas</div>
+              <div style="font-size:14px;font-weight:600;" id="receipt-desc">Levantamento de ganhos</div>
+              <div style="font-size:12px;color:var(--grey);" id="receipt-period">—</div>
             </div>
-            <span style="font-size:14px;font-weight:700;">58.823 Kz</span>
+            <span style="font-size:14px;font-weight:700;" id="receipt-gross">— Kz</span>
           </div>
           <div class="receipt-line" style="padding:14px 16px;">
             <div>
               <div style="font-size:14px;font-weight:600;">Taxa Nzimbo (15%)</div>
               <div style="font-size:12px;color:var(--grey);">Plataforma + processamento</div>
             </div>
-            <span style="font-size:14px;font-weight:700;color:var(--danger);">-8.823 Kz</span>
+            <span style="font-size:14px;font-weight:700;color:var(--danger);" id="receipt-fee">— Kz</span>
           </div>
         </div>
 
         <div style="max-width:260px;margin-left:auto;">
-          <div class="receipt-line"><span>Vendas brutas</span><span>58.823 Kz</span></div>
-          <div class="receipt-line"><span class="text-danger">Taxa Nzimbo (15%)</span><span class="text-danger">-8.823 Kz</span></div>
+          <div class="receipt-line"><span>Vendas brutas</span><span id="receipt-gross2">— Kz</span></div>
+          <div class="receipt-line"><span class="text-danger">Taxa Nzimbo (15%)</span><span class="text-danger" id="receipt-fee2">— Kz</span></div>
           <div class="receipt-line"><span class="text-success">Taxa de levantamento</span><span class="text-success">Grátis</span></div>
           <div class="receipt-line" style="font-weight:800;font-size:16px;border-top:2px solid var(--border-md);padding-top:12px;margin-top:4px;">
-            <span>Total Recebido</span><span style="color:var(--gold);">50.000 Kz</span>
+            <span>Total Recebido</span><span style="color:var(--gold);" id="receipt-total">— Kz</span>
           </div>
         </div>
       </div>
@@ -795,6 +795,26 @@ function goTo(page) {
   document.getElementById('sec-' + page).classList.add('active');
   updateSteps(page);
   window.scrollTo({top:0,behavior:'smooth'});
+
+  // Preencher recibo com os dados do levantamento actual
+  if (page === 'recibo') {
+    const amt   = parseFloat(document.getElementById('withdrawAmount')?.value) || 0;
+    const fee   = amt * 0.15;
+    const net   = amt * 0.85;
+    const ref   = '#WD-' + Date.now().toString(36).toUpperCase().slice(-8);
+    const now   = new Date();
+    const month = now.toLocaleString('pt-AO',{month:'long',year:'numeric'});
+    const dateStr = now.toLocaleDateString('pt-AO',{day:'numeric',month:'long',year:'numeric'});
+    const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    setEl('receipt-ref',    ref);
+    setEl('receipt-date',   dateStr);
+    setEl('receipt-desc',   'Levantamento de ganhos – ' + month.charAt(0).toUpperCase() + month.slice(1));
+    setEl('receipt-gross',  fmt(amt));
+    setEl('receipt-gross2', fmt(amt));
+    setEl('receipt-fee',    '-' + fmt(fee));
+    setEl('receipt-fee2',   '-' + fmt(fee));
+    setEl('receipt-total',  fmt(net));
+  }
 }
 
 function updateSteps(page) {
@@ -1155,6 +1175,18 @@ function renderWithdrawals(withdrawals) {
   // 6) Renderizar listas
   renderSales(purchases);
   renderWithdrawals(withdrawals);
+
+  // Preencher recibo com dados reais do utilizador
+  const fullName = (profile.first_name + ' ' + (profile.last_name||'')).trim();
+  const email    = session.user.email || '';
+  const shortId  = '#CRT-' + profile.id.slice(-5).toUpperCase();
+  const today    = new Date().toLocaleDateString('pt-AO',{day:'numeric',month:'long',year:'numeric'});
+
+  const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  setEl('receipt-name',  fullName);
+  setEl('receipt-email', email);
+  setEl('receipt-id',    shortId);
+  setEl('receipt-date',  today);
 
 })();
 </script>

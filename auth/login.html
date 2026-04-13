@@ -249,9 +249,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     // Mensagens de erro claras em Português
     if (msg.includes('Email not confirmed') || msg.includes('email') && msg.includes('confirm')) {
       showAlertBox('error',
-        '⚠️ O teu email ainda não foi confirmado. Verifica a tua caixa de correio e clica no link de confirmação.<br><br>' +
-        '<small style="color:rgba(255,255,255,0.5)">Não encontras o email? Verifica a pasta de spam ou <a href="recuperar-senha.html" style="color:#F5A623;">clica aqui para reenviar</a>.</small><br><br>' +
-        '<strong style="color:#F5A623;font-size:13px;">💡 Para ativar o login imediato: Supabase → Authentication → Settings → desativa "Enable email confirmations"</strong>'
+        '⚠️ Email não confirmado.<br><br>Para resolver: no <strong>Supabase</strong> → Authentication → Settings → desactiva <strong>&quot;Enable email confirmations&quot;</strong> → Save. Depois tenta entrar de novo.'
       );
     } else if (msg.includes('Invalid login credentials') || msg.includes('Email ou senha')) {
       showAlertBox('error', 'Email ou senha incorretos. Verifica os teus dados e tenta novamente.');

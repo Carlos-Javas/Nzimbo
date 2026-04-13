@@ -17,10 +17,20 @@ const NzimboAuth = {
       }
     });
     if (error) throw sbErr(error);
-    if (data.user && phone) {
-      await sb.from('profiles')
-        .update({ phone, first_name: firstName, last_name: lastName||'', type: type||'buyer' })
-        .eq('id', data.user.id);
+
+    // Criar perfil imediatamente (não depender apenas do trigger)
+    if (data.user) {
+      const profileData = {
+        id:            data.user.id,
+        first_name:    firstName,
+        last_name:     lastName || '',
+        phone:         phone || '',
+        type:          type || 'buyer',
+        storage_used:  0,
+        storage_limit: 6442450944
+      };
+      // upsert para não falhar se o trigger já criou
+      await sb.from('profiles').upsert(profileData, { onConflict: 'id' });
     }
     return data;
   },
@@ -53,7 +63,21 @@ const NzimboAuth = {
     const sb = await waitSB();
     const { data: { user } } = await sb.auth.getUser();
     if (!user) return null;
-    const { data } = await sb.from('profiles').select('*').eq('id', user.id).single();
+    let { data } = await sb.from('profiles').select('*').eq('id', user.id).maybeSingle();
+    // Fallback: criar perfil se não existir (caso o trigger SQL não esteja activo)
+    if (!data) {
+      const m = user.user_metadata || {};
+      const insertData = {
+        id:            user.id,
+        first_name:    m.first_name || m.full_name?.split(' ')[0] || 'Utilizador',
+        last_name:     m.last_name  || m.full_name?.split(' ').slice(1).join(' ') || '',
+        type:          m.type || 'buyer',
+        storage_used:  0,
+        storage_limit: 6442450944
+      };
+      const { data: created } = await sb.from('profiles').insert(insertData).select().single();
+      data = created;
+    }
     return data;
   },
 
