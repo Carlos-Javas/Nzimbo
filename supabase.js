@@ -4,7 +4,7 @@
    ═══════════════════════════════════════════════════════════ */
 
 const SUPABASE_URL  = 'https://nrkcuibxslpevcexteoo.supabase.co';   // ← substitui
-const SUPABASE_ANON = 'eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ya2N1aWJ4c2xwZXZjZXh0ZW9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzOTYzMDUsImV4cCI6MjA5MDk3MjMwNX0';                 // ← substitui
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ya2N1aWJ4c2xwZXZjZXh0ZW9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzOTYzMDUsImV4cCI6MjA5MDk3MjMwNX0.Q6YivwsvqU87RV5fulNRJQTlY2WnoaQodGzzoABadkE';                 // ← substitui
 
 /* ── Inicialização segura (aguarda CDN) ─────────────────── */
 let _sb;
