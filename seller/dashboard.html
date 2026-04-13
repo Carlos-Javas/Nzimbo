@@ -1119,22 +1119,29 @@
   const initials = (profile.first_name?.[0]||'') + (profile.last_name?.[0]||'');
 
   document.addEventListener('DOMContentLoaded', async () => {
-    // Topbar
+    // ── Topbar ──
     const av = document.querySelector('.topbar-avatar');
     if (av) av.textContent = initials || 'C';
     const nm = document.querySelector('.topbar-user-name');
     if (nm) nm.textContent = profile.first_name + ' ' + (profile.last_name||'');
 
-    // Greeting dinâmico
+    // ── Greeting dinâmico — substitui QUALQUER nome hardcoded ──
     const hour = new Date().getHours();
     const saud = hour < 12 ? 'Bom dia' : hour < 18 ? 'Boa tarde' : 'Boa noite';
-    document.querySelectorAll('.welcome-name, .greeting-name').forEach(el => el.textContent = profile.first_name);
-    const greetEl = document.querySelector('[class*="welcome"] h2, .welcome-banner h2');
-    if (greetEl && greetEl.textContent.includes('Carlos')) {
-      greetEl.innerHTML = greetEl.innerHTML.replace('Carlos', profile.first_name);
-    }
+    // Substituir o h2 do welcome banner directamente
+    document.querySelectorAll('#page-dashboard h2').forEach(el => {
+      if (el.textContent.includes('👋') || el.textContent.includes('tarde') || el.textContent.includes('dia') || el.textContent.includes('noite')) {
+        el.innerHTML = saud + ', <span style="color:var(--gold)">' + profile.first_name + '</span> 👋';
+      }
+    });
+    // Também actualizar qualquer parágrafo com "23 vendas" hardcoded
+    document.querySelectorAll('#page-dashboard p').forEach(el => {
+      if (el.textContent.includes('23 vendas') || el.textContent.includes('tiveram')) {
+        el.innerHTML = 'Bem-vindo ao teu painel. Cria o teu primeiro curso ou produto! 🚀';
+      }
+    });
 
-    // Storage badge
+    // ── Storage badge ──
     const storageInfo = await NzimboAuth.getStorageInfo();
     if (storageInfo) {
       document.getElementById('storageWidget').style.display = 'flex';
@@ -1147,18 +1154,86 @@
       });
     }
 
-    // Carregar cursos reais
+    // ── Carregar dados reais ──
     await loadSellerDashboard();
   });
 })();
 
 async function loadSellerDashboard() {
-  const stats = await NzimboCourses.getCreatorStats();
-  // Actualizar stats no dashboard
-  const statEls = document.querySelectorAll('.stat-value');
-  if (statEls.length >= 1) statEls[0].textContent = stats.totalRevenue?.toLocaleString('pt-AO') + ' Kz';
-  if (statEls.length >= 2) statEls[1].textContent = stats.totalCourses || 0;
-  if (statEls.length >= 3) statEls[2].textContent = stats.totalProducts || 0;
+  const sb = await waitSB();
+  const user = await NzimboAuth.getUser();
+  if (!user) return;
+
+  // Buscar IDs dos cursos e produtos do criador
+  const [{ data: myCourses }, { data: myProducts }] = await Promise.all([
+    sb.from('courses').select('id, title').eq('creator_id', user.id),
+    sb.from('products').select('id, title').eq('creator_id', user.id)
+  ]);
+
+  const courseIds  = (myCourses  || []).map(c => c.id);
+  const productIds = (myProducts || []).map(p => p.id);
+  const courseMap  = Object.fromEntries((myCourses  || []).map(c => [c.id, c.title]));
+  const productMap = Object.fromEntries((myProducts || []).map(p => [p.id, p.title]));
+
+  // Buscar todas as compras dos produtos/cursos do criador
+  let allPurchases = [];
+  if (courseIds.length || productIds.length) {
+    const orFilter = [
+      courseIds.length  ? 'course_id.in.(' + courseIds.join(',')  + ')' : null,
+      productIds.length ? 'product_id.in.(' + productIds.join(',') + ')' : null
+    ].filter(Boolean).join(',');
+
+    const { data: purchases } = await sb
+      .from('purchases')
+      .select('*, profiles(first_name, last_name)')
+      .or(orFilter)
+      .order('purchased_at', { ascending: false });
+    allPurchases = purchases || [];
+  }
+
+  // ── Stats ──
+  const totalRevenue  = allPurchases.filter(p=>p.status==='paid').reduce((s,p)=>s+(p.amount||0),0);
+  const totalSales    = allPurchases.filter(p=>p.status==='paid').length;
+  const totalStudents = new Set(allPurchases.map(p=>p.user_id)).size;
+
+  const revEl = document.getElementById('d-stat-revenue');
+  const salEl = document.getElementById('d-stat-sales');
+  const stuEl = document.getElementById('d-stat-students');
+  if (revEl) revEl.textContent = totalRevenue.toLocaleString('pt-AO') + ' Kz';
+  if (salEl) salEl.textContent = totalSales;
+  if (stuEl) stuEl.textContent = totalStudents;
+
+  // ── Tabela de vendas recentes ──
+  const tbody = document.querySelector('#page-dashboard .data-table tbody');
+  if (tbody) {
+    if (allPurchases.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--grey);padding:32px;">Ainda não tens vendas. Publica o teu primeiro curso ou produto!</td></tr>';
+    } else {
+      tbody.innerHTML = allPurchases.slice(0, 8).map(p => {
+        const isCourse = !!p.course_id;
+        const title    = isCourse ? (courseMap[p.course_id] || 'Curso') : (productMap[p.product_id] || 'Produto');
+        const tipo     = isCourse ? 'Curso' : 'Produto Digital';
+        const buyer    = p.profiles ? (p.profiles.first_name + ' ' + (p.profiles.last_name||'')).trim() : 'Comprador';
+        const date     = new Date(p.purchased_at);
+        const now      = new Date();
+        const isToday  = date.toDateString() === now.toDateString();
+        const isYest   = date.toDateString() === new Date(now-86400000).toDateString();
+        const dateStr  = isToday ? 'Hoje, ' + date.toLocaleTimeString('pt-AO',{hour:'2-digit',minute:'2-digit'})
+                       : isYest  ? 'Ontem, ' + date.toLocaleTimeString('pt-AO',{hour:'2-digit',minute:'2-digit'})
+                       : date.toLocaleDateString('pt-AO',{day:'numeric',month:'short'});
+        const statusTag = p.status === 'paid'    ? '<span class="tag tag-green">✓ Pago</span>'
+                        : p.status === 'pending' ? '<span class="tag tag-gold">⏳ Pendente</span>'
+                        : '<span class="tag tag-red">✗ Reembolsado</span>';
+        return `<tr>
+          <td><div style="font-weight:600;font-size:13px;">${title}</div><div style="font-size:11px;color:var(--grey);">${tipo}</div></td>
+          <td style="color:var(--grey-light);">${buyer}</td>
+          <td style="color:var(--grey);">${dateStr}</td>
+          <td class="text-gold fw-800">${(p.amount||0).toLocaleString('pt-AO')} Kz</td>
+          <td>${statusTag}</td>
+        </tr>`;
+      }).join('');
+    }
+  }
 }
 </script>
 
