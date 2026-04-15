@@ -269,7 +269,7 @@ document.getElementById('registerForm').addEventListener('submit', async e => {
   setButtonLoading(btn, true);
   try {
     await waitSB();
-    await NzimboAuth.register({
+    const data = await NzimboAuth.register({
       firstName: f.firstName.value.trim(),
       lastName:  f.lastName.value.trim(),
       email:     f.email.value.trim(),
@@ -277,6 +277,22 @@ document.getElementById('registerForm').addEventListener('submit', async e => {
       password:  f.pass.value,
       type:      selectedType
     });
+
+    // Se Supabase devolveu sessão (confirmação de email desactivada) → redirecionar já
+    if (data && data.session) {
+      const dest = selectedType === 'creator' ? '../seller/dashboard.html' : '../buyer/dashboard.html';
+      window.location.href = dest;
+      return;
+    }
+
+    // Tentar login imediato
+    try {
+      await NzimboAuth.login(f.email.value.trim(), f.pass.value);
+      const dest = selectedType === 'creator' ? '../seller/dashboard.html' : '../buyer/dashboard.html';
+      window.location.href = dest;
+      return;
+    } catch(_) { /* email precisa confirmação — mostrar ecrã de sucesso */ }
+
     document.getElementById('welcomeName').textContent = f.firstName.value.trim();
     if (selectedType === 'creator') document.getElementById('dashboardLink').href = '../seller/dashboard.html';
     goToStep(3);

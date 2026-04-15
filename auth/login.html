@@ -247,9 +247,10 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const msg = err.message || '';
 
     // Mensagens de erro claras em Português
-    if (msg.includes('Email not confirmed') || msg.includes('email') && msg.includes('confirm')) {
+    if (msg.includes('Email not confirmed') || (msg.includes('email') && msg.includes('confirm'))) {
+      try { const sb2 = await waitSB(); await sb2.auth.resend({ type: 'signup', email }); } catch(_) {}
       showAlertBox('error',
-        '⚠️ Email não confirmado.<br><br>Para resolver: no <strong>Supabase</strong> → Authentication → Settings → desactiva <strong>&quot;Enable email confirmations&quot;</strong> → Save. Depois tenta entrar de novo.'
+        '⚠️ Email não confirmado.<br><br>Reenviámos um email de confirmação para <strong>' + email + '</strong>. Confirma e tenta entrar novamente.<br><small style="color:var(--grey)">Não encontras? Verifica o spam.</small>'
       );
     } else if (msg.includes('Invalid login credentials') || msg.includes('Email ou senha')) {
       showAlertBox('error', 'Email ou senha incorretos. Verifica os teus dados e tenta novamente.');
